@@ -1,7 +1,7 @@
 ﻿using NutriWise.Domain.Entities.Base;
 using NutriWise.Domain.ValueObjects;
 
-namespace NutriWise.Domain.Entities;
+namespace NutriWise.Domain.Entities.Recipe;
 
 public sealed class FoodRecipe : Entity
 {

@@ -1,6 +1,6 @@
 ﻿using NutriWise.Domain.Entities.Base;
 
-namespace NutriWise.Domain.Entities;
+namespace NutriWise.Domain.Entities.Product;
 
 public sealed class SubCategory : Entity
 {
