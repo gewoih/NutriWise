@@ -2,6 +2,6 @@
 
 namespace NutriWise.Domain.Entities.Identity;
 
-public sealed class User : IdentityUser<Guid>
+public sealed class Role : IdentityRole<Guid>
 {
 }
