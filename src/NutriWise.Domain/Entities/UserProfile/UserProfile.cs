@@ -1,10 +1,12 @@
 ﻿using NutriWise.Domain.Entities.Base;
+using NutriWise.Domain.Entities.Identity;
 using NutriWise.Domain.ValueObjects;
 
 namespace NutriWise.Domain.Entities.UserProfile;
 
 public sealed class UserProfile : Entity
 {
+	public User User { get; set; }
 	public Guid UserId { get; set; }
 	public Gender Gender { get; set; }
 	public DateOnly BirthdayDate { get; set; }

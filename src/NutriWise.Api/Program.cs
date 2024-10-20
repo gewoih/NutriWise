@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using NutriWise.Infrastructure.Database;
+
 namespace NutriWise;
 
 public class Program
@@ -6,6 +9,9 @@ public class Program
 	{
 		var builder = WebApplication.CreateBuilder(args);
 
+		var connectionString = builder.Configuration.GetConnectionString("Default");
+		builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+		
 		builder.Services.AddAuthorization();
 
 		builder.Services.AddEndpointsApiExplorer();
