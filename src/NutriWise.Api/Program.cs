@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ public class Program
 		var builder = WebApplication.CreateBuilder(args);
 
 		builder.Services.AddControllers();
-		
+
 		var connectionString = builder.Configuration.GetConnectionString("Default");
 		builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
@@ -38,22 +39,24 @@ public class Program
 			})
 			.AddGoogle(options =>
 			{
-				options.ClientId = "633948126557-rqver9vq5bjbkoq8hqqjj5f4phndefmb.apps.googleusercontent.com";
-				options.ClientSecret = "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";
-				options.CallbackPath = "/api/auth/google-callback";
+				options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+				options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 			})
 			.AddJwtBearer(options =>
-		{
-			options.TokenValidationParameters = new TokenValidationParameters
 			{
-				ValidateIssuer = false,
-				ValidateAudience = false,
-				ValidateLifetime = true,
-				ValidateIssuerSigningKey = true,
-				IssuerSigningKey = new SymmetricSecurityKey("k3d34kCYECVNl02kINQUlIoW75TXcgFkJAhtEam7Nvk="u8.ToArray())
-			};
-		});
-		
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					ValidIssuer = builder.Configuration["Jwt:Issuer"],
+					ValidAudience = builder.Configuration["Jwt:Audience"],
+					IssuerSigningKey =
+						new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+				};
+			});
+
 		builder.Services.AddCors(options =>
 		{
 			options.AddPolicy("AllowSpecificOrigin", configure =>
@@ -75,13 +78,13 @@ public class Program
 			app.UseSwagger();
 			app.UseSwaggerUI();
 		}
-		
+
 		app.UseHttpsRedirection();
 		app.UseAuthentication();
 		app.UseAuthorization();
-		
+
 		app.MapControllers();
-		
+
 		app.Run();
 	}
 }

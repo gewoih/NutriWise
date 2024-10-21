@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NutriWise.Domain.Entities.Base;
+using NutriWise.Domain.Entities.Identity;
 using NutriWise.Domain.Entities.Product;
 using NutriWise.Domain.Entities.Recipe;
 using NutriWise.Domain.Entities.UserProfile;
-using NutriWise.Domain.ValueObjects;
 
 namespace NutriWise.Infrastructure.Database;
 
-public sealed class AppDbContext : DbContext
+public sealed class AppDbContext : IdentityDbContext<User, Role, Guid>
 {
 	public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
 	{

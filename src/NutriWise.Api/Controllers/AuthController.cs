@@ -25,15 +25,15 @@ public class AuthController : Controller
     }
     
 	[HttpGet("google")]
-    public IActionResult GoogleLogin()
+    public IActionResult GoogleLogin(string returnUrl)
     {
-        var redirectUrl = Url.Action(nameof(GoogleCallback), "Auth", null, Request.Scheme);
+        var redirectUrl = Url.Action(nameof(GoogleCallback), "Auth", new { ReturnUrl = returnUrl });
         var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
         return Challenge(properties, "Google");
     }
 
-    [HttpGet("google-callback")]
-    public async Task<IActionResult> GoogleCallback()
+    [HttpGet("signin-google")]
+    public async Task<IActionResult> GoogleCallback(string returnUrl)
     {
         var info = await _signInManager.GetExternalLoginInfoAsync();
         if (info == null)
@@ -46,15 +46,21 @@ public class AuthController : Controller
             var user = new User { UserName = email, Email = email };
             var identityResult = await _userManager.CreateAsync(user);
             if (identityResult.Succeeded)
-            {
                 await _userManager.AddLoginAsync(user, info);
-            }
         }
 
         var userFromDb = await _userManager.FindByEmailAsync(info.Principal.FindFirstValue(ClaimTypes.Email));
         var token = GenerateJwtToken(userFromDb);
         
-        return Redirect($"https://localhost:8080/callback?token={token}");
+        Response.Cookies.Append("jwt", token, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.UtcNow.AddHours(1)
+        });
+        
+        return Redirect(returnUrl);
     }
 
     private string GenerateJwtToken(User user)
@@ -66,7 +72,8 @@ public class AuthController : Controller
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        var jwtKey = _configuration["Jwt:Key"];
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var expires = DateTime.Now.AddDays(7);
 
