@@ -19,7 +19,7 @@ export default defineComponent({
       const token = urlParams.get('token');
 
       if (token) {
-        localStorage.setItem('jwt', token);
+        localStorage.setItem('access_token', token);
         router.push('/');
       } else {
         console.error('Token not found in URL');

@@ -72,7 +72,8 @@ public class Program
 			options.AddPolicy("AllowSpecificOrigin", configure =>
 				configure.WithOrigins("http://localhost:8080")
 					.AllowAnyMethod()
-					.AllowAnyHeader());
+					.AllowAnyHeader()
+					.AllowCredentials());
 		});
 
 
@@ -117,6 +118,8 @@ public class Program
 			app.UseSwaggerUI();
 		}
 
+		app.UseCors("AllowSpecificOrigin");
+		
 		app.UseHttpsRedirection();
 		app.UseAuthentication();
 		app.UseAuthorization();

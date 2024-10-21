@@ -52,15 +52,7 @@ public class AuthController : ControllerBase
         var userFromDb = await _userManager.FindByEmailAsync(info.Principal.FindFirstValue(ClaimTypes.Email));
         var token = GenerateJwtToken(userFromDb);
         
-        Response.Cookies.Append("jwt", token, new CookieOptions
-        {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTimeOffset.UtcNow.AddHours(1)
-        });
-        
-        return Redirect(returnUrl);
+        return Redirect($"{returnUrl}?token={token}");
     }
 
     private string GenerateJwtToken(User user)

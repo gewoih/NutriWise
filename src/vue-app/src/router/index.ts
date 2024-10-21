@@ -1,8 +1,12 @@
 ﻿import {createRouter, createWebHistory} from 'vue-router';
-import Callback from "../components/Callback.vue";
+import CallbackGoogle from '../components/Google/CallbackGoogle.vue';
+import UserProfile from "../views/UserProfile.vue";
+import LoginGoogle from '../components/Google/LoginGoogle.vue';
 
 const routes = [
-    { path: '/callback', name: 'Callback', component: Callback }
+    { path: '/callback', component: CallbackGoogle },
+    { path: '/profile', component: UserProfile },
+    { path: '/login', component: LoginGoogle }
 ];
 
 const router = createRouter({

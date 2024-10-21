@@ -14,7 +14,7 @@ export default defineComponent({
 
   methods: {
     loginWithGoogle() {
-      window.location.href = 'https://localhost:5001/api/auth/google?returnUrl=http://localhost:8080';
+      window.location.href = 'https://localhost:5001/api/auth/google?returnUrl=http://localhost:8080/callback';
     }
   }
 });
