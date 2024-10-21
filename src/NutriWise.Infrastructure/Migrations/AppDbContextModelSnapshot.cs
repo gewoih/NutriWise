@@ -34,7 +34,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasIndex("UserProfilesId");
 
-                    b.ToTable("AllergyUserProfile");
+                    b.ToTable("AllergyUserProfile", (string)null);
                 });
 
             modelBuilder.Entity("KitchenEquipmentUserProfile", b =>
@@ -49,7 +49,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasIndex("UserProfilesId");
 
-                    b.ToTable("KitchenEquipmentUserProfile");
+                    b.ToTable("KitchenEquipmentUserProfile", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -259,7 +259,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FoodCategories");
+                    b.ToTable("FoodCategories", (string)null);
 
                     b.HasData(
                         new
@@ -326,7 +326,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("FoodSubCategories");
+                    b.ToTable("FoodSubCategories", (string)null);
 
                     b.HasData(
                         new
@@ -563,7 +563,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -1778,7 +1778,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("NutriWise.Domain.Entities.Recipe.RecipeIngredient", b =>
@@ -1820,7 +1820,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("RecipeIngredients");
+                    b.ToTable("RecipeIngredients", (string)null);
                 });
 
             modelBuilder.Entity("NutriWise.Domain.Entities.UserProfile.Allergy", b =>
@@ -1835,7 +1835,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Allergies");
+                    b.ToTable("Allergies", (string)null);
 
                     b.HasData(
                         new
@@ -1902,7 +1902,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KitchenEquipments");
+                    b.ToTable("KitchenEquipments", (string)null);
 
                     b.HasData(
                         new
@@ -2013,7 +2013,7 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserProfiles");
+                    b.ToTable("UserProfiles", (string)null);
                 });
 
             modelBuilder.Entity("AllergyUserProfile", b =>

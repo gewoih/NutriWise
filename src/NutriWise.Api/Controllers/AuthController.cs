@@ -9,7 +9,7 @@ using NutriWise.Domain.Entities.Identity;
 namespace NutriWise.Controllers;
 
 [Route("/api/auth")]
-public class AuthController : Controller
+public class AuthController : ControllerBase
 {
     private readonly SignInManager<User> _signInManager;
     private readonly UserManager<User> _userManager;

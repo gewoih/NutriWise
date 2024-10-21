@@ -14,7 +14,6 @@ public sealed class UserProfile : Entity
 	public double Weight { get; set; }
 	public ActivityLevel ActivityLevel { get; set; }
 	public DietGoalType DietGoalType { get; set; }
-	
 	public ICollection<Allergy> Allergies { get; set; }
 	public ICollection<KitchenEquipment> KitchenEquipments { get; set; }
 }

@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\NutriWise.Domain\NutriWise.Domain.csproj" />
+      <ProjectReference Include="..\NutriWise.Infrastructure\NutriWise.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
