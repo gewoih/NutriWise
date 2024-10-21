@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutriWise.Domain.Entities.UserProfile;
+using NutriWise.Domain.ValueObjects;
 using NutriWise.Infrastructure.Database;
 
 namespace NutriWise.Application;
@@ -61,7 +62,11 @@ public sealed class UserProfileService : IUserProfileService
 
 	public async Task<UserProfile?> UpdateAsync(Guid userId, UserProfileDto userProfileDto)
 	{
-		var userProfile = await _context.UserProfiles.FirstOrDefaultAsync(userProfile => userProfile.UserId == userId);
+		var userProfile = await _context.UserProfiles
+			.Include(userProfile => userProfile.Allergies)
+			.Include(userProfile => userProfile.KitchenEquipments)
+			.FirstOrDefaultAsync(userProfile => userProfile.UserId == userId);
+		
 		if (userProfile is null)
 			return null;
 
@@ -84,5 +89,31 @@ public sealed class UserProfileService : IUserProfileService
 
 		await _context.SaveChangesAsync();
 		return userProfile;
+	}
+	
+	public async Task<SelectableFieldsInfo> GetSelectableFieldsAsync()
+	{
+		var allergies = await _context.Allergies.ToListAsync();
+		var kitchenEquipment = await _context.KitchenEquipments.ToListAsync();
+		var genders = Enum.GetValues<Gender>()
+			.Select(g => g.ToString())
+			.ToList();
+
+		var activityLevels = Enum.GetValues<ActivityLevel>()
+			.Select(al => al.ToString())
+			.ToList();
+
+		var dietGoalTypes = Enum.GetValues<DietGoalType>()
+			.Select(dg => dg.ToString())
+			.ToList();
+
+		return new SelectableFieldsInfo
+		{
+			Allergies = allergies,
+			KitchenEquipment = kitchenEquipment,
+			Genders = genders,
+			ActivityLevels = activityLevels,
+			DietGoalTypes = dietGoalTypes
+		};
 	}
 }

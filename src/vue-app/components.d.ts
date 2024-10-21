@@ -10,11 +10,13 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     Calendar: typeof import('primevue/calendar')['default']
     CallbackGoogle: typeof import('./src/components/Google/CallbackGoogle.vue')['default']
+    DatePicker: typeof import('primevue/datepicker')['default']
     Dropdown: typeof import('primevue/dropdown')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
     LoginGoogle: typeof import('./src/components/Google/LoginGoogle.vue')['default']
     MultiSelect: typeof import('primevue/multiselect')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('primevue/select')['default']
   }
 }

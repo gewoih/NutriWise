@@ -1,14 +1,19 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
-import App from './App.vue'
-import Aura from '@primevue/themes/aura';
+import App from './App.vue';
+
+import Material from '@primevue/themes/material';
+import './style.css'
+import 'primeicons/primeicons.css'
+import 'primeflex/primeflex.css';
+
 import router from "./router";
 
 const app = createApp(App);
 app.use(router);
 app.use(PrimeVue, {
     theme: {
-        preset: Aura,
+        preset: Material,
         options: {
             prefix: 'p',
             darkModeSelector: 'system',

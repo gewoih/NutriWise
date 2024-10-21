@@ -1,21 +1,11 @@
 ﻿import { apiService } from './api.ts'
 import { AxiosResponse } from 'axios';
-
-export interface UserProfileDto {
-    gender: string | null;
-    birthdayDate: string | null;
-    height: number | null;
-    weight: number | null;
-    activityLevel: string | null;
-    dietGoalType: string | null;
-    allergies: string[];
-    kitchenEquipment: string[];
-}
+import { UserProfile } from "../models/UserProfile.ts";
 
 class UserProfileService {
-    async getUserProfile(): Promise<UserProfileDto | null> {
+    async getUserProfile(): Promise<UserProfile | null> {
         try {
-            const response: AxiosResponse<UserProfileDto> = await apiService.axiosInstance.get('/user-profile');
+            const response: AxiosResponse<UserProfile> = await apiService.axiosInstance.get('/user-profile');
             return response.data;
         } catch (error) {
             console.error('Error fetching user profile', error);
@@ -23,9 +13,9 @@ class UserProfileService {
         }
     }
 
-    async createUserProfile(userProfile: UserProfileDto): Promise<UserProfileDto | null> {
+    async createUserProfile(userProfile: UserProfile): Promise<UserProfile | null> {
         try {
-            const response: AxiosResponse<UserProfileDto> = await apiService.axiosInstance.post('/user-profile', userProfile);
+            const response: AxiosResponse<UserProfile> = await apiService.axiosInstance.post('/user-profile', userProfile);
             return response.data;
         } catch (error) {
             console.error('Error creating user profile', error);
@@ -45,6 +35,11 @@ class UserProfileService {
             console.error('Error updating user profile', error);
             return false;
         }
+    }
+
+    async getSelectableFields() {
+        const response = await apiService.axiosInstance.get('/user-profile/selectable-fields');
+        return response.data;
     }
 }
 

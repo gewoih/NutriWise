@@ -49,6 +49,13 @@ public class UserProfileController : ControllerBase
 		await _userProfileService.UpdateAsync(currentUserId, userProfileDto);
 		return NoContent();
 	}
+
+	[HttpGet("selectable-fields")]
+	public async Task<IActionResult> GetSelectableFields()
+	{
+		var selectableFieldsInfo = await _userProfileService.GetSelectableFieldsAsync();
+		return Ok(selectableFieldsInfo);
+	}
 	
 	private Guid GetCurrentUserId()
 	{
