@@ -1,0 +1,57 @@
+﻿{
+  "type": "object",
+  "properties": {
+    "meals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "recipe": {
+            "type": "object",
+            "properties": {
+              "ingredients": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "quantity"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "instructions": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ingredients",
+              "instructions"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "name",
+          "recipe"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "meals"
+  ],
+  "additionalProperties": false
+}
