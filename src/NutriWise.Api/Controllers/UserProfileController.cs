@@ -7,7 +7,7 @@ using NutriWise.Application.Users;
 namespace NutriWise.Controllers;
 
 [Authorize]
-[Route("api/[controller]")]
+[Route("api/user-profile")]
 [ApiController]
 public class UserProfileController : ControllerBase
 {

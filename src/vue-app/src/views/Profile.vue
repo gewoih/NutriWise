@@ -1,15 +1,6 @@
 ﻿<!-- src/views/Profile.vue -->
 <template>
   <div class="profile-page p-px-4 p-py-6">
-    <div class="profile-header p-d-flex p-jc-between p-ai-center p-mb-4">
-      <h2>Your Profile</h2>
-      <Button
-          label="Logout"
-          icon="pi pi-sign-out"
-          class="p-button-danger"
-          @click="logout"
-      />
-    </div>
     <UserProfile />
   </div>
 </template>
