@@ -30,7 +30,7 @@ public class RecipeService : IRecipeService
 		_context = context;
 	}
 
-	public async Task<FoodRecipe> GenerateRecipeAsync()
+	public async Task<Domain.Entities.Recipe.Meal> GenerateRecipeAsync()
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
 		var userProfile = await _userProfileService.GetAsync(currentUserId);
@@ -44,22 +44,22 @@ public class RecipeService : IRecipeService
 			$"carbs={nutrition.CarbGrams}.";
 
 		var response = await _openAiService.GetJsonResponse("recipeResponse.json", "generateRecipe.txt", message);
-		var meals = JsonConvert.DeserializeObject<DailyMeals>(response);
+		var meals = JsonConvert.DeserializeObject<MealPlan>(response);
 
 		foreach (var meal in meals?.Meals)
 		{
-			var foodRecipe = new FoodRecipe
+			var foodRecipe = new Domain.Entities.Recipe.Meal
 			{
 				Caption = meal.Name,
 				CookingInstructions = meal.Recipe.Instructions,
-				Ingredients = meal.Recipe.Ingredients.Select(i => new RecipeIngredient
+				Ingredients = meal.Recipe.Ingredients.Select(i => new Domain.Entities.Recipe.Ingredient
 				{
 					Amount = i.Quantity,
 					MeasurmentType = MeasurmentType.Grams
 				}).ToList()
 			};
 
-			await _context.Recipes.AddAsync(foodRecipe);
+			await _context.Meals.AddAsync(foodRecipe);
 		}
 
 		await _context.SaveChangesAsync();

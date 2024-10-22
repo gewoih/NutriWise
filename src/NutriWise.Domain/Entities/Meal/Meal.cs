@@ -2,8 +2,8 @@
 
 namespace NutriWise.Domain.Entities.Recipe;
 
-public sealed class FoodRecipe : Entity
+public sealed class Meal : Entity
 {
-	public ICollection<RecipeIngredient> Ingredients { get; set; }
+	public ICollection<Ingredient> Ingredients { get; set; }
 	public string CookingInstructions { get; set; }
 }

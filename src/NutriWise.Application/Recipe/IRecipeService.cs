@@ -4,5 +4,5 @@ namespace NutriWise.Application.Recipe;
 
 public interface IRecipeService
 {
-	Task<FoodRecipe> GenerateRecipeAsync();
+	Task<Domain.Entities.Recipe.Meal> GenerateRecipeAsync();
 }
