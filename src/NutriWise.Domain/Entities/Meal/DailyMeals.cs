@@ -4,5 +4,5 @@ namespace NutriWise.Domain.Entities.Meal;
 
 public sealed class DailyMeals : Entity
 {
-	public ICollection<Meal> FoodRecipes { get; set; }
+	public ICollection<Meal> Meals { get; set; }
 }

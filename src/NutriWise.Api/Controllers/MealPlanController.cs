@@ -5,13 +5,13 @@ using NutriWise.Application.MealPlan;
 namespace NutriWise.Controllers
 {
 	[Authorize]
-	[Route("api/[controller]")]
+	[Route("api/meal-plan")]
 	[ApiController]
-	public class RecipeController : ControllerBase
+	public class MealPlanController : ControllerBase
 	{
 		private readonly IMealPlanService _mealPlanService;
 
-		public RecipeController(IMealPlanService mealPlanService)
+		public MealPlanController(IMealPlanService mealPlanService)
 		{
 			_mealPlanService = mealPlanService;
 		}
@@ -19,7 +19,7 @@ namespace NutriWise.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			var foodRecipe = await _mealPlanService.GenerateRecipeAsync();
+			var foodRecipe = await _mealPlanService.GenerateMealPlanAsync();
 			return Ok(foodRecipe);
 		}
 	}

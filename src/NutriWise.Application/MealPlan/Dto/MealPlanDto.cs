@@ -2,8 +2,8 @@
 
 namespace NutriWise.Application.MealPlan.Dto;
 
-public class MealPlan
+public class MealPlanDto
 {
 	[JsonProperty("meals")]
-	public List<Meal> Meals { get; set; }
+	public List<MealDto> Meals { get; set; }
 }

@@ -21,6 +21,7 @@ public class OpenAiService
 			
 		var options = new ChatCompletionOptions
 		{
+			Temperature = 0.5f,
 			ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
 				jsonSchemaFormatName: "recipes",
 				jsonSchema: BinaryData.FromBytes(Encoding.UTF8.GetBytes(recipeResponseJsonSchema)),

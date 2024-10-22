@@ -2,11 +2,11 @@
 
 namespace NutriWise.Application.MealPlan.Dto;
 
-public class Ingredient
+public class MealDto
 {
 	[JsonProperty("name")]
 	public string Name { get; set; }
 
-	[JsonProperty("quantity")]
-	public double Quantity { get; set; }
+	[JsonProperty("recipe")]
+	public RecipeDto RecipeDto { get; set; }
 }

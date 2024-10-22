@@ -1,8 +1,6 @@
-﻿using NutriWise.Domain.Entities.Meal;
-
-namespace NutriWise.Application.MealPlan;
+﻿namespace NutriWise.Application.MealPlan;
 
 public interface IMealPlanService
 {
-	Task<Meal> GenerateRecipeAsync();
+	Task<Domain.Entities.Meal.MealPlan> GenerateMealPlanAsync();
 }
