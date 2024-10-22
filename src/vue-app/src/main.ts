@@ -3,13 +3,17 @@ import PrimeVue from 'primevue/config';
 import App from './App.vue';
 
 import Material from '@primevue/themes/material';
-import './style.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css';
+
+import { createPinia } from 'pinia';
 
 import router from "./router";
 
 const app = createApp(App);
+const pinia = createPinia();
+
+app.use(pinia);
 app.use(router);
 app.use(PrimeVue, {
     theme: {

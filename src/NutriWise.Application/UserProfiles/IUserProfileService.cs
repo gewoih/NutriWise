@@ -1,7 +1,6 @@
 ﻿using NutriWise.Domain.Entities.UserProfile;
-using NutriWise.Domain.ValueObjects;
 
-namespace NutriWise.Application;
+namespace NutriWise.Application.UserProfiles;
 
 public interface IUserProfileService
 {

@@ -1,27 +1,29 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using NutriWise.Application;
+using NutriWise.Application.UserProfiles;
+using NutriWise.Application.Users;
 
 namespace NutriWise.Controllers;
 
 [Authorize]
+[Route("api/[controller]")]
 [ApiController]
-[Route("api/user-profile")]
 public class UserProfileController : ControllerBase
 {
 	private readonly IUserProfileService _userProfileService;
+	private readonly ICurrentUserService _currentUserService;
 
-	public UserProfileController(IUserProfileService userProfileService)
+	public UserProfileController(IUserProfileService userProfileService, ICurrentUserService currentUserService)
 	{
 		_userProfileService = userProfileService;
+		_currentUserService = currentUserService;
 	}
 
 	[HttpGet]
 	public async Task<IActionResult> Get()
 	{
-		var currentUserId = GetCurrentUserId();
+		var currentUserId = _currentUserService.GetCurrentUserId();
 		var userProfileDto = await _userProfileService.GetAsync(currentUserId);
 		return userProfileDto is null ? NotFound() : Ok(userProfileDto);
 	}
@@ -29,7 +31,7 @@ public class UserProfileController : ControllerBase
 	[HttpPost]
 	public async Task<IActionResult> Post([FromBody] UserProfileDto userProfileDto)
 	{
-		var currentUserId = GetCurrentUserId();
+		var currentUserId = _currentUserService.GetCurrentUserId();
 		var createdUserProfile = await _userProfileService.CreateAsync(currentUserId, userProfileDto);
 		return createdUserProfile is null 
 			? Conflict() 
@@ -39,7 +41,7 @@ public class UserProfileController : ControllerBase
 	[HttpPatch]
 	public async Task<IActionResult> Patch([FromBody] JsonPatchDocument<UserProfileDto> patchDocument)
 	{
-		var currentUserId = GetCurrentUserId();
+		var currentUserId = _currentUserService.GetCurrentUserId();
 		var userProfileDto = await _userProfileService.GetAsync(currentUserId);
 		if (userProfileDto is null)
 			return NotFound();
@@ -55,24 +57,5 @@ public class UserProfileController : ControllerBase
 	{
 		var selectableFieldsInfo = await _userProfileService.GetSelectableFieldsAsync();
 		return Ok(selectableFieldsInfo);
-	}
-	
-	private Guid GetCurrentUserId()
-	{
-		var nameIdentifierClaims = User?.Claims
-			.Where(c => c.Type == ClaimTypes.NameIdentifier)
-			.Select(c => c.Value)
-			.ToList();
-
-		if (nameIdentifierClaims == null || nameIdentifierClaims.Count == 0)
-			return Guid.Empty;
-
-		foreach (var claim in nameIdentifierClaims)
-		{
-			if (Guid.TryParse(claim, out var userId))
-				return userId;
-		}
-
-		return Guid.Empty;
 	}
 }

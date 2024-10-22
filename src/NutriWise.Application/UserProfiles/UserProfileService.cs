@@ -3,7 +3,7 @@ using NutriWise.Domain.Entities.UserProfile;
 using NutriWise.Domain.ValueObjects;
 using NutriWise.Infrastructure.Database;
 
-namespace NutriWise.Application;
+namespace NutriWise.Application.UserProfiles;
 
 public sealed class UserProfileService : IUserProfileService
 {

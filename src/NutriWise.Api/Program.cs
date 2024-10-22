@@ -6,6 +6,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using NutriWise.Application;
+using NutriWise.Application.Nutrition;
+using NutriWise.Application.UserProfiles;
+using NutriWise.Application.Users;
 using NutriWise.Domain.Entities.Identity;
 using NutriWise.Infrastructure.Database;
 
@@ -25,6 +28,8 @@ public class Program
 			});
 
 		builder.Services.AddScoped<IUserProfileService, UserProfileService>();
+		builder.Services.AddScoped<INutritionService, NutritionService>();
+		builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 		
 		var connectionString = builder.Configuration.GetConnectionString("Default");
 		builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));

@@ -1,44 +1,59 @@
 <template>
-  <div id="app">
-    <header>
-      <nav>
-        <RouterLink to="/login">Login</RouterLink> |
-        <RouterLink to="/profile">Profile</RouterLink>
-      </nav>
-    </header>
-    <RouterView />
+  <div id="app" class="app-container">
+    <Header />
+
+    <main class="app-main">
+      <router-view />
+    </main>
   </div>
 </template>
 
-<script setup lang="ts">
-import { onMounted } from 'vue';
-import 'primeicons/primeicons.css';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import Header from './components/Header.vue';
 
-onMounted(() => {
-  console.log('App mounted');
+export default defineComponent({
+  name: 'App',
+  components: {
+    Header,
+  },
 });
 </script>
 
-<style scoped>
+<style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-header {
-  background-color: #42b983;
-  padding: 20px;
-  color: white;
+.app-main {
+  flex-grow: 1;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: white;
+main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-nav a:hover {
-  text-decoration: underline;
+@media (max-width: 768px) {
+  .app-main {
+    padding: 10px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
