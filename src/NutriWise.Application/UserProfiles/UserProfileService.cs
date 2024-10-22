@@ -14,14 +14,10 @@ public sealed class UserProfileService : IUserProfileService
 		_context = context;
 	}
 
-	public async Task<UserProfileDto?> GetAsync(Guid userId)
+	public async Task<UserProfile?> GetAsync(Guid userId)
 	{
 		var userProfile = await _context.UserProfiles
 			.Where(userProfile => userProfile.UserId == userId)
-			.Select(userProfile => new UserProfileDto(userProfile.Gender, userProfile.BirthdayDate, userProfile.Height,
-				userProfile.Weight, userProfile.ActivityLevel, userProfile.DietGoalType,
-				userProfile.Allergies.Select(allergy => allergy.Id),
-				userProfile.KitchenEquipments.Select(kitchenEquipment => kitchenEquipment.Id)))
 			.FirstOrDefaultAsync();
 
 		return userProfile;

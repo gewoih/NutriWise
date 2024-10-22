@@ -7,10 +7,12 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using NutriWise.Application;
 using NutriWise.Application.Nutrition;
+using NutriWise.Application.Recipe;
 using NutriWise.Application.UserProfiles;
 using NutriWise.Application.Users;
 using NutriWise.Domain.Entities.Identity;
 using NutriWise.Infrastructure.Database;
+using NutriWise.Infrastructure.OpenAi;
 
 namespace NutriWise;
 
@@ -30,6 +32,8 @@ public class Program
 		builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 		builder.Services.AddScoped<INutritionService, NutritionService>();
 		builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+		builder.Services.AddScoped<IRecipeService, RecipeService>();
+		builder.Services.AddScoped<OpenAiService>();
 		
 		var connectionString = builder.Configuration.GetConnectionString("Default");
 		builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));

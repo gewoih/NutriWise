@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace NutriWise.Application.Extensions;
+namespace NutriWise.Infrastructure.Extensions;
 
 public static class EmbeddedResourcesUtils
 {

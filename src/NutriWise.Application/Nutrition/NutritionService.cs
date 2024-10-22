@@ -1,24 +1,13 @@
 ﻿using NutriWise.Application.Extensions;
-using NutriWise.Application.UserProfiles;
+using NutriWise.Domain.Entities.UserProfile;
 using NutriWise.Domain.ValueObjects;
 
 namespace NutriWise.Application.Nutrition;
 
 public sealed class NutritionService : INutritionService
 {
-	private readonly IUserProfileService _userProfileService;
-
-	public NutritionService(IUserProfileService userProfileService)
+	public NutritionPlan CalculateNutritionPlan(UserProfile userProfile)
 	{
-		_userProfileService = userProfileService;
-	}
-
-	public async Task<NutritionPlan?> CalculateNutritionPlan(Guid userId)
-	{
-		var userProfile = await _userProfileService.GetAsync(userId);
-		if (userProfile is null)
-			return null;
-
 		var gender = userProfile.Gender;
 		var age = UserExtensions.CalculateAge(userProfile.BirthdayDate);
 		var heightCm = userProfile.Height;

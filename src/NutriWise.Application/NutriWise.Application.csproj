@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="OpenAI" Version="2.0.0" />
     </ItemGroup>
 
@@ -21,9 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Resources\JsonSchemas\recipeResponse.json" />
       <None Remove="Resources\Prompts\generateRecipe.txt" />
-      <EmbeddedResource Include="Resources\Prompts\generateRecipe.txt" />
     </ItemGroup>
 
 </Project>

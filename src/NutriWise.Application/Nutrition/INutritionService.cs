@@ -1,8 +1,8 @@
-﻿using NutriWise.Domain.ValueObjects;
+﻿using NutriWise.Domain.Entities.UserProfile;
 
 namespace NutriWise.Application.Nutrition;
 
 public interface INutritionService
 {
-	Task<NutritionPlan?> CalculateNutritionPlan(Guid userId);
+	NutritionPlan CalculateNutritionPlan(UserProfile userProfile);
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using NutriWise.Application.Extensions;
 using NutriWise.Application.UserProfiles;
 using NutriWise.Application.Users;
 
@@ -42,10 +43,11 @@ public class UserProfileController : ControllerBase
 	public async Task<IActionResult> Patch([FromBody] JsonPatchDocument<UserProfileDto> patchDocument)
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
-		var userProfileDto = await _userProfileService.GetAsync(currentUserId);
-		if (userProfileDto is null)
+		var userProfile = await _userProfileService.GetAsync(currentUserId);
+		if (userProfile is null)
 			return NotFound();
 
+		var userProfileDto = userProfile.ToDto();
 		patchDocument.ApplyTo(userProfileDto);
 		
 		await _userProfileService.UpdateAsync(currentUserId, userProfileDto);
