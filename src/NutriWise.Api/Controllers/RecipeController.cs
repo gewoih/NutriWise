@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NutriWise.Application.Recipe;
+using NutriWise.Application.MealPlan;
 
 namespace NutriWise.Controllers
 {
@@ -9,17 +9,17 @@ namespace NutriWise.Controllers
 	[ApiController]
 	public class RecipeController : ControllerBase
 	{
-		private readonly IRecipeService _recipeService;
+		private readonly IMealPlanService _mealPlanService;
 
-		public RecipeController(IRecipeService recipeService)
+		public RecipeController(IMealPlanService mealPlanService)
 		{
-			_recipeService = recipeService;
+			_mealPlanService = mealPlanService;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			var foodRecipe = await _recipeService.GenerateRecipeAsync();
+			var foodRecipe = await _mealPlanService.GenerateRecipeAsync();
 			return Ok(foodRecipe);
 		}
 	}

@@ -1,6 +1,6 @@
 ﻿using NutriWise.Domain.Entities.Base;
 
-namespace NutriWise.Domain.Entities.Recipe;
+namespace NutriWise.Domain.Entities.Meal;
 
 public sealed class MealPlan : Entity
 {

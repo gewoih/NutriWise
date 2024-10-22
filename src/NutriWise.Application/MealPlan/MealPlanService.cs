@@ -2,14 +2,14 @@
 using NutriWise.Application.Nutrition;
 using NutriWise.Application.UserProfiles;
 using NutriWise.Application.Users;
-using NutriWise.Domain.Entities.Recipe;
+using NutriWise.Domain.Entities.Meal;
 using NutriWise.Domain.ValueObjects;
 using NutriWise.Infrastructure.Database;
 using NutriWise.Infrastructure.OpenAi;
 
-namespace NutriWise.Application.Recipe;
+namespace NutriWise.Application.MealPlan;
 
-public class RecipeService : IRecipeService
+public class MealPlanService : IMealPlanService
 {
 	private readonly OpenAiService _openAiService;
 	private readonly INutritionService _nutritionService;
@@ -17,7 +17,7 @@ public class RecipeService : IRecipeService
 	private readonly IUserProfileService _userProfileService;
 	private readonly AppDbContext _context;
 	
-	public RecipeService(OpenAiService openAiService, 
+	public MealPlanService(OpenAiService openAiService, 
 		INutritionService nutritionService, 
 		IUserProfileService userProfileService, 
 		ICurrentUserService currentUserService, 
@@ -30,7 +30,7 @@ public class RecipeService : IRecipeService
 		_context = context;
 	}
 
-	public async Task<Domain.Entities.Recipe.Meal> GenerateRecipeAsync()
+	public async Task<Meal> GenerateRecipeAsync()
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
 		var userProfile = await _userProfileService.GetAsync(currentUserId);
@@ -44,15 +44,15 @@ public class RecipeService : IRecipeService
 			$"carbs={nutrition.CarbGrams}.";
 
 		var response = await _openAiService.GetJsonResponse("recipeResponse.json", "generateRecipe.txt", message);
-		var meals = JsonConvert.DeserializeObject<MealPlan>(response);
+		var meals = JsonConvert.DeserializeObject<Dto.MealPlan>(response);
 
 		foreach (var meal in meals?.Meals)
 		{
-			var foodRecipe = new Domain.Entities.Recipe.Meal
+			var foodRecipe = new Meal
 			{
 				Caption = meal.Name,
 				CookingInstructions = meal.Recipe.Instructions,
-				Ingredients = meal.Recipe.Ingredients.Select(i => new Domain.Entities.Recipe.Ingredient
+				Ingredients = meal.Recipe.Ingredients.Select(i => new Ingredient
 				{
 					Amount = i.Quantity,
 					MeasurmentType = MeasurmentType.Grams

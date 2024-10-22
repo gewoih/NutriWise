@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NutriWise.Application.Recipe
+namespace NutriWise.Application.MealPlan.Dto
 {
 	public class Recipe
 	{

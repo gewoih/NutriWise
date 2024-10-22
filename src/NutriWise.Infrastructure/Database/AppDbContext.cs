@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using NutriWise.Domain.Entities.Base;
 using NutriWise.Domain.Entities.Identity;
+using NutriWise.Domain.Entities.Meal;
 using NutriWise.Domain.Entities.Product;
-using NutriWise.Domain.Entities.Recipe;
 using NutriWise.Domain.Entities.UserProfile;
 
 namespace NutriWise.Infrastructure.Database;
