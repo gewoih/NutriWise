@@ -9,24 +9,24 @@ namespace NutriWise.Controllers
 	[ApiController]
 	public class MealPlanController : ControllerBase
 	{
-		private readonly IMealPlanService _mealPlanService;
+		private readonly IMealService _mealService;
 
-		public MealPlanController(IMealPlanService mealPlanService)
+		public MealPlanController(IMealService mealService)
 		{
-			_mealPlanService = mealPlanService;
+			_mealService = mealService;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			var mealPlans = await _mealPlanService.GetAsync();
+			var mealPlans = await _mealService.GetAsync();
 			return Ok(mealPlans);
 		}
 		
 		[HttpPost]
 		public async Task<IActionResult> Post()
 		{
-			var mealPlan = await _mealPlanService.GenerateMealPlanAsync();
+			var mealPlan = await _mealService.GenerateDailyMealsAsync();
 			return Ok(mealPlan);
 		}
 	}

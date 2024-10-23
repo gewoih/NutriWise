@@ -26,7 +26,7 @@ builder.Services.AddScoped<DatabaseInitializer>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<INutritionService, NutritionService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
-builder.Services.AddScoped<IMealPlanService, MealPlanService>();
+builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<OpenAiService>();
 
 var connectionString = builder.Configuration.GetConnectionString("Default");

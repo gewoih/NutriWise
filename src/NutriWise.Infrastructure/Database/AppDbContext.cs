@@ -21,7 +21,6 @@ public sealed class AppDbContext : IdentityDbContext<User, Role, Guid>
 	public DbSet<Ingredient> Ingredients { get; set; }
 	public DbSet<Meal> Meals { get; set; }
 	public DbSet<DailyMeals> DailyMeals { get; set; }
-	public DbSet<MealPlan> MealPlans { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{

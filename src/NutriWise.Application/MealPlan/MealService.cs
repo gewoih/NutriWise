@@ -10,7 +10,7 @@ using NutriWise.Infrastructure.OpenAi.Dto;
 
 namespace NutriWise.Application.MealPlan;
 
-public class MealPlanService : IMealPlanService
+public class MealService : IMealService
 {
 	private readonly OpenAiService _openAiService;
 	private readonly INutritionService _nutritionService;
@@ -18,7 +18,7 @@ public class MealPlanService : IMealPlanService
 	private readonly IUserProfileService _userProfileService;
 	private readonly AppDbContext _context;
 
-	public MealPlanService(OpenAiService openAiService,
+	public MealService(OpenAiService openAiService,
 		INutritionService nutritionService,
 		IUserProfileService userProfileService,
 		ICurrentUserService currentUserService,
@@ -31,18 +31,18 @@ public class MealPlanService : IMealPlanService
 		_context = context;
 	}
 
-	public async Task<List<Domain.Entities.Meal.MealPlan>> GetAsync()
+	public async Task<List<DailyMeals>> GetAsync()
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
-		var mealPlans = await _context.MealPlans
+		var mealPlans = await _context.DailyMeals
 			.AsNoTracking()
-			.Where(mealPlan => mealPlan.UserId == currentUserId)
+			.Where(dailyMeal => dailyMeal.UserId == currentUserId)
 			.ToListAsync();
 
 		return mealPlans;
 	}
 
-	public async Task<Domain.Entities.Meal.MealPlan> GenerateMealPlanAsync()
+	public async Task<List<DailyMeals>> GenerateDailyMealsAsync()
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
 		var userProfile = await _userProfileService.GetAsync(currentUserId);
@@ -75,24 +75,16 @@ public class MealPlanService : IMealPlanService
 			meals.Add(meal);
 		}
 
-		var mealPlan = new Domain.Entities.Meal.MealPlan
+		var dailyMeals = new DailyMeals
 		{
 			UserId = currentUserId,
-			Caption = "Meal plan for 1 day",
-			DaysCount = 1,
-			DailyMeals =
-			[
-				new DailyMeals
-				{
-					Meals = meals
-				}
-			]
+			Meals = meals
 		};
 
-		await _context.MealPlans.AddAsync(mealPlan);
+		await _context.DailyMeals.AddAsync(dailyMeals);
 		await _context.SaveChangesAsync();
 
-		return mealPlan;
+		return [dailyMeals];
 	}
 
 	private async Task ValidateUsedProductsAsync(MealPlanDto mealPlanDto)
