@@ -1,8 +1,8 @@
-﻿namespace NutriWise.Domain.Entities.UserProfile;
+﻿using NutriWise.Domain.Entities.Base;
 
-public sealed class Allergy
+namespace NutriWise.Domain.Entities.UserProfile;
+
+public sealed class Allergy : Entity
 {
-	public Guid Id { get; set; }
-	public string Name { get; set; }
 	public ICollection<UserProfile> UserProfiles { get; set; }
 }

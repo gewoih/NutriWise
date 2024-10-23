@@ -1,8 +1,8 @@
-﻿namespace NutriWise.Domain.Entities.UserProfile;
+﻿using NutriWise.Domain.Entities.Base;
 
-public sealed class KitchenEquipment
+namespace NutriWise.Domain.Entities.UserProfile;
+
+public sealed class KitchenEquipment : Entity
 {
-	public Guid Id { get; set; }
-	public string Name { get; set; }
 	public ICollection<UserProfile> UserProfiles { get; set; }
 }

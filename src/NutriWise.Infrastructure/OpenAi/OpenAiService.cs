@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using NutriWise.Infrastructure.Extensions;
+using NutriWise.Infrastructure.OpenAi.Dto;
 using OpenAI.Chat;
 
 namespace NutriWise.Infrastructure.OpenAi;
@@ -14,10 +16,10 @@ public class OpenAiService
 		_configuration = configuration;
 	}
 
-	public async Task<string> GetJsonResponse(string jsonSchemaFileName, string promptFileName, string message)
+	public async Task<MealPlanDto> GetMealPlanAsync(double calories, double proteinGrams, double fatGrams, double carbGrams)
 	{
 		var client = new ChatClient(model: "gpt-4o", apiKey: _configuration["OpenAi:ApiKey"]);
-		var recipeResponseJsonSchema = await EmbeddedResourcesUtils.GetResourceFileContentAsync(jsonSchemaFileName);
+		var recipeResponseJsonSchema = await EmbeddedResourcesUtils.GetResourceFileContentAsync("recipeResponse.json");
 			
 		var options = new ChatCompletionOptions
 		{
@@ -28,8 +30,21 @@ public class OpenAiService
 				jsonSchemaIsStrict: true)
 		};
 
-		var prompt = await EmbeddedResourcesUtils.GetResourceFileContentAsync(promptFileName);
+		var message =
+			$"Generate me daily meals plan with following nutrition value: " +
+			$"calories={calories}, " +
+			$"proteins={proteinGrams}, " +
+			$"fats={fatGrams}, " +
+			$"carbs={carbGrams}.";
+		
+		var prompt = await EmbeddedResourcesUtils.GetResourceFileContentAsync("generateRecipe.txt");
 		var completion = await client.CompleteChatAsync([$"{prompt} {message}"], options);
-		return completion.Value.Content[0].Text;
+		var response = completion.Value.Content[0].Text;
+		var mealPlanDto = JsonConvert.DeserializeObject<MealPlanDto>(response);
+		
+		if (mealPlanDto?.Meals is null)
+			throw new ApplicationException("Произошла ошибка при генерации плана питания.");
+
+		return mealPlanDto;
 	}
 }

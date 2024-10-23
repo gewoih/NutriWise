@@ -1,9 +1,9 @@
-﻿namespace NutriWise.Domain.Entities.Product;
+﻿using NutriWise.Domain.Entities.Base;
 
-public sealed class FoodSubCategory
+namespace NutriWise.Domain.Entities.Product;
+
+public sealed class FoodSubCategory : Entity
 {
-	public Guid Id { get; set; }
-	public string Name { get; set; }
-	public FoodCategory Category { get; set; }
 	public Guid CategoryId { get; set; }
+	public ICollection<Product> Products { get; set; }
 }

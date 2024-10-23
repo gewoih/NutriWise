@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NutriWise.Application.MealPlan.Dto;
+namespace NutriWise.Infrastructure.OpenAi.Dto;
 
 public class IngredientDto
 {

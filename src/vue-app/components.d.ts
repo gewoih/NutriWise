@@ -19,6 +19,7 @@ declare module 'vue' {
     Login: typeof import('./src/components/Login.vue')['default']
     LoginButton: typeof import('./src/components/Google/LoginButton.vue')['default']
     LoginGoogle: typeof import('./src/components/Google/LoginGoogle.vue')['default']
+    MealPlan: typeof import('./src/components/MealPlan/MealPlan.vue')['default']
     Menubar: typeof import('primevue/menubar')['default']
     MultiSelect: typeof import('primevue/multiselect')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
