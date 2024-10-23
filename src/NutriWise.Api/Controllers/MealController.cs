@@ -5,13 +5,13 @@ using NutriWise.Application.MealPlan;
 namespace NutriWise.Controllers
 {
 	[Authorize]
-	[Route("api/meal-plan")]
+	[Route("api/meal")]
 	[ApiController]
-	public class MealPlanController : ControllerBase
+	public class MealController : ControllerBase
 	{
 		private readonly IMealService _mealService;
 
-		public MealPlanController(IMealService mealService)
+		public MealController(IMealService mealService)
 		{
 			_mealService = mealService;
 		}
