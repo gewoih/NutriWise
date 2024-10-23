@@ -48,8 +48,12 @@ public class MealPlanService : IMealPlanService
 		var userProfile = await _userProfileService.GetAsync(currentUserId);
 		var nutrition = _nutritionService.CalculateNutritionPlan(userProfile);
 
+		var availableProductsDto = await _context.Products
+			.Select(product => new ProductDto { Id = product.Id, Name = product.Caption })
+			.ToListAsync();
+
 		var mealPlanDto = await _openAiService.GetMealPlanAsync(nutrition.Calories, nutrition.ProteinGrams,
-			nutrition.FatGrams, nutrition.CarbGrams);
+			nutrition.FatGrams, nutrition.CarbGrams, availableProductsDto);
 
 		await ValidateUsedProductsAsync(mealPlanDto);
 
@@ -97,7 +101,7 @@ public class MealPlanService : IMealPlanService
 			.SelectMany(meal => meal.RecipeDto.Ingredients.Select(i => i.Id))
 			.Distinct()
 			.ToList();
-		
+
 		var usedProductsFromDb = await _context.Products
 			.Where(product => usedProductsIds.Contains(product.Id))
 			.ToListAsync();

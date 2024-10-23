@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
-using NutriWise.Application;
 using NutriWise.Application.MealPlan;
 using NutriWise.Application.Nutrition;
 using NutriWise.Application.UserProfiles;
