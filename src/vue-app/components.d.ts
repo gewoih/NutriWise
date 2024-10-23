@@ -10,6 +10,7 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     Calendar: typeof import('primevue/calendar')['default']
     CallbackGoogle: typeof import('./src/components/Google/CallbackGoogle.vue')['default']
+    DataView: typeof import('primevue/dataview')['default']
     DatePicker: typeof import('primevue/datepicker')['default']
     Dropdown: typeof import('primevue/dropdown')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
