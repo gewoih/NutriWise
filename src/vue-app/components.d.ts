@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
     CallbackGoogle: typeof import('./src/components/Google/CallbackGoogle.vue')['default']
+    Card: typeof import('primevue/card')['default']
     DatePicker: typeof import('primevue/datepicker')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']

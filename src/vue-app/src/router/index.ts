@@ -1,8 +1,8 @@
 ﻿import {createRouter, createWebHistory} from 'vue-router';
-import CallbackGoogle from '../components/Google/CallbackGoogle.vue';
 import Profile from '../views/Profile.vue';
 import Login from '../views/Login.vue';
-import { useAuthStore } from '../stores/auth';
+import {useUserStore} from "../stores/user.ts";
+import CallbackGoogle from "../components/Google/CallbackGoogle.vue";
 
 const routes = [
     { path: '/callback', component: CallbackGoogle },
@@ -15,12 +15,10 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
-    const authStore = useAuthStore();
-    if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-        next('/login');
-    } else {
-        next();
+router.beforeEach(to => {
+    const authStore = useUserStore();
+    if (!authStore.isAuthenticated) {
+        to.name = '/login';
     }
 });
 
