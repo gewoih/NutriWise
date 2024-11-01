@@ -31,12 +31,30 @@ public class MealService : IMealService
 		_context = context;
 	}
 
-	public async Task<List<DailyMeals>> GetAsync()
+	public async Task<List<MealPlanDto>> GetAsync()
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
 		var mealPlans = await _context.DailyMeals
 			.AsNoTracking()
+			.Include(dailyMeal => dailyMeal.Meals)
+			.ThenInclude(meal => meal.Ingredients)
+			.ThenInclude(ingredient => ingredient.Product)
 			.Where(dailyMeal => dailyMeal.UserId == currentUserId)
+			.Select(dailyMeal => new MealPlanDto
+			{
+				Id = dailyMeal.Id,
+				Name = "План питания #",
+				Meals = dailyMeal.Meals.Select(meal => new MealDto
+				{
+					Name = meal.Caption,
+					CookingInstructions = meal.CookingInstructions,
+					Ingredients = meal.Ingredients.Select(ingredient => new IngredientDto
+					{
+						Name = ingredient.Product.Caption,
+						Amount = ingredient.Amount
+					}).ToList()
+				}).ToList()
+			})
 			.ToListAsync();
 
 		return mealPlans;
@@ -87,7 +105,7 @@ public class MealService : IMealService
 		return [dailyMeals];
 	}
 
-	private async Task ValidateUsedProductsAsync(MealPlanDto mealPlanDto)
+	private async Task ValidateUsedProductsAsync(Infrastructure.OpenAi.Dto.MealPlanDto mealPlanDto)
 	{
 		var usedProductsIds = mealPlanDto.Meals
 			.SelectMany(meal => meal.RecipeDto.Ingredients.Select(i => i.Id))
