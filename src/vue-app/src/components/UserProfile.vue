@@ -81,12 +81,12 @@ const updateProfile = async () => {
 </script>
 
 <template>
-  <div class="user-profile-container">
-    <div class="form-card">
+  <div>
+    <div>
       <h2>Edit Your Profile</h2>
       <form @submit.prevent="updateProfile">
         <!-- Gender -->
-        <div class="form-group">
+        <div>
           <label for="gender">Gender</label>
           <Select
               id="gender"
@@ -95,12 +95,11 @@ const updateProfile = async () => {
               optionLabel="label"
               optionValue="value"
               placeholder="Select Gender"
-              class="form-input"
           />
         </div>
 
         <!-- Birthday Date -->
-        <div class="form-group">
+        <div>
           <label for="birthday">Birthday Date</label>
           <DatePicker
               id="birthday"
@@ -108,12 +107,11 @@ const updateProfile = async () => {
               dateFormat="yy-mm-dd"
               :showTime="false"
               showIcon
-              class="form-input"
           />
         </div>
 
         <!-- Height -->
-        <div class="form-group">
+        <div>
           <label for="height">Height (cm)</label>
           <InputNumber
               id="height"
@@ -122,12 +120,11 @@ const updateProfile = async () => {
               :max="250"
               mode="decimal"
               :step="0.1"
-              class="form-input"
           />
         </div>
 
         <!-- Weight -->
-        <div class="form-group">
+        <div>
           <label for="weight">Weight (kg)</label>
           <InputNumber
               id="weight"
@@ -136,12 +133,11 @@ const updateProfile = async () => {
               :max="300"
               mode="decimal"
               :step="0.01"
-              class="form-input"
           />
         </div>
 
         <!-- Activity Level -->
-        <div class="form-group">
+        <div>
           <label for="activityLevel">Activity Level</label>
           <Select
               id="activityLevel"
@@ -150,12 +146,11 @@ const updateProfile = async () => {
               optionLabel="label"
               optionValue="value"
               placeholder="Select Activity Level"
-              class="form-input"
           />
         </div>
 
         <!-- Diet Goal -->
-        <div class="form-group">
+        <div>
           <label for="dietGoalType">Diet Goal</label>
           <Select
               id="dietGoalType"
@@ -164,12 +159,11 @@ const updateProfile = async () => {
               optionLabel="label"
               optionValue="value"
               placeholder="Select Diet Goal"
-              class="form-input"
           />
         </div>
 
         <!-- Allergies -->
-        <div class="form-group">
+        <div>
           <label for="allergies">Allergies</label>
           <MultiSelect
               id="allergies"
@@ -178,12 +172,11 @@ const updateProfile = async () => {
               optionLabel="label"
               optionValue="value"
               placeholder="Select Allergies"
-              class="form-input"
           />
         </div>
 
         <!-- Kitchen Equipment -->
-        <div class="form-group">
+        <div>
           <label for="kitchenEquipment">Kitchen Equipment</label>
           <MultiSelect
               id="kitchenEquipment"
@@ -192,7 +185,6 @@ const updateProfile = async () => {
               optionLabel="label"
               optionValue="value"
               placeholder="Select Equipment"
-              class="form-input"
           />
         </div>
 
@@ -201,101 +193,9 @@ const updateProfile = async () => {
           <Button
               label="Update Profile"
               type="submit"
-              class="submit-button"
           />
         </div>
       </form>
     </div>
   </div>
 </template>
-
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-.user-profile-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-  min-height: 100vh;
-}
-
-.form-card {
-  background-color: #ffffff;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.8rem;
-  color: #333333;
-  font-family: 'Roboto', sans-serif;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #555555;
-  font-family: 'Roboto', sans-serif;
-}
-
-.form-input {
-  width: 100%;
-}
-
-.Button {
-  width: 100%;
-}
-
-.button-container {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.submit-button {
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.submit-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
-
-.submit-button:disabled {
-  background-color: #a0c5f1;
-  cursor: not-allowed;
-}
-
-@media (max-width: 600px) {
-  .form-card {
-    padding: 20px;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .submit-button {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-}
-</style>

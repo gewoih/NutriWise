@@ -1,6 +1,6 @@
 ﻿import { defineStore } from 'pinia';
 
-export const useAuthStore = defineStore('auth', {
+export const useUserStore = defineStore('user', {
     state: () => ({
         authToken: localStorage.getItem('access_token') || '',
     }),
