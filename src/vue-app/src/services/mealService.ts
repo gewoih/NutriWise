@@ -3,13 +3,13 @@ import {AxiosResponse} from "axios";
 import {DailyMeal} from "../models/meal/DailyMeal.ts";
 
 class MealPlanService {
-    async getDailyMeals(): Promise<DailyMeal[] | null> {
+    async getDailyMeals(): Promise<DailyMeal[]> {
         try {
             const response: AxiosResponse<DailyMeal[]> = await apiService.axiosInstance.get('/meal');
             return response.data;
         } catch (error) {
             console.error('Error fetching meals plan', error);
-            return null;
+            return [];
         }
     }
 
