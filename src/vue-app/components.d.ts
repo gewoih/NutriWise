@@ -11,6 +11,7 @@ declare module 'vue' {
     CallbackGoogle: typeof import('./src/components/Google/CallbackGoogle.vue')['default']
     Card: typeof import('primevue/card')['default']
     DatePicker: typeof import('primevue/datepicker')['default']
+    Footer: typeof import('./src/components/Footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
     LoginButton: typeof import('./src/components/Google/LoginButton.vue')['default']
@@ -21,5 +22,8 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('primevue/select')['default']
     UserProfile: typeof import('./src/components/UserProfile.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    Ripple: typeof import('primevue/ripple')['default']
   }
 }
