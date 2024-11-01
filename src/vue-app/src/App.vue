@@ -2,7 +2,7 @@
   <div id="app" class="app-container">
     <Header />
 
-    <main class="app-main">
+    <main class="flex align-items-center justify-content-center">
       <router-view />
     </main>
   </div>
