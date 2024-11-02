@@ -31,12 +31,19 @@ public class MealService : IMealService
 		_context = context;
 	}
 
-	public async Task<List<DailyMeals>> GetAsync()
+	public async Task<List<MealPlanDto>> GetUserPlansAsync()
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
 		var mealPlans = await _context.DailyMeals
 			.AsNoTracking()
+			.Include(dailyMeal => dailyMeal.Meals)
 			.Where(dailyMeal => dailyMeal.UserId == currentUserId)
+			.Select(dailyMeal => new MealPlanDto
+			{
+				Id = dailyMeal.Id,
+				Name = "План питания #",
+				MealNames = dailyMeal.Meals.Select(meal => meal.Caption).ToList()
+			})
 			.ToListAsync();
 
 		return mealPlans;
@@ -87,7 +94,7 @@ public class MealService : IMealService
 		return [dailyMeals];
 	}
 
-	private async Task ValidateUsedProductsAsync(MealPlanDto mealPlanDto)
+	private async Task ValidateUsedProductsAsync(Infrastructure.OpenAi.Dto.MealPlanDto mealPlanDto)
 	{
 		var usedProductsIds = mealPlanDto.Meals
 			.SelectMany(meal => meal.RecipeDto.Ingredients.Select(i => i.Id))
