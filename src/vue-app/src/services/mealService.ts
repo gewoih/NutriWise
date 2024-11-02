@@ -3,7 +3,7 @@ import {AxiosResponse} from "axios";
 import {MealPlan} from "../models/meal/MealPlan.ts";
 
 class MealPlanService {
-    async getDailyMeals(): Promise<MealPlan[]> {
+    async getMealPlans(): Promise<MealPlan[]> {
         try {
             const response: AxiosResponse<MealPlan[]> = await apiService.axiosInstance.get('/meal');
             return response.data;
@@ -13,7 +13,7 @@ class MealPlanService {
         }
     }
 
-    async createDailyMeals(): Promise<MealPlan | null> {
+    async createMealPlan(): Promise<MealPlan | null> {
         try {
             const response: AxiosResponse<MealPlan> = await apiService.axiosInstance.post('/meal');
             return response.data;
