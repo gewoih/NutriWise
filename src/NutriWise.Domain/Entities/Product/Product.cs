@@ -1,4 +1,5 @@
 ﻿using NutriWise.Domain.Entities.Base;
+using NutriWise.Domain.Entities.Identity;
 
 namespace NutriWise.Domain.Entities.Product;
 
@@ -10,4 +11,5 @@ public sealed class Product : Entity
 	public double? Proteins { get; set; }
 	public double? Fats { get; set; }
 	public double? Carbohydrates { get; set; }
+	public ICollection<User> Users { get; set; }
 }
