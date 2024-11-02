@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using NutriWise.Infrastructure.Database;
@@ -11,9 +12,11 @@ using NutriWise.Infrastructure.Database;
 namespace NutriWise.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241102161321_User_AvailableProducts_Added")]
+    partial class User_AvailableProducts_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -552,25 +555,24 @@ namespace NutriWise.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserProfiles");
                 });
 
-            modelBuilder.Entity("ProductUserProfile", b =>
+            modelBuilder.Entity("ProductUser", b =>
                 {
-                    b.Property<Guid>("ProductsId")
+                    b.Property<Guid>("AvailableProductsId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserProfilesId")
+                    b.Property<Guid>("UsersId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("ProductsId", "UserProfilesId");
+                    b.HasKey("AvailableProductsId", "UsersId");
 
-                    b.HasIndex("UserProfilesId");
+                    b.HasIndex("UsersId");
 
-                    b.ToTable("ProductUserProfile");
+                    b.ToTable("ProductUser");
                 });
 
             modelBuilder.Entity("AllergyUserProfile", b =>
@@ -697,32 +699,26 @@ namespace NutriWise.Infrastructure.Migrations
             modelBuilder.Entity("NutriWise.Domain.Entities.UserProfile.UserProfile", b =>
                 {
                     b.HasOne("NutriWise.Domain.Entities.Identity.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("NutriWise.Domain.Entities.UserProfile.UserProfile", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProductUserProfile", b =>
+            modelBuilder.Entity("ProductUser", b =>
                 {
                     b.HasOne("NutriWise.Domain.Entities.Product.Product", null)
                         .WithMany()
-                        .HasForeignKey("ProductsId")
+                        .HasForeignKey("AvailableProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NutriWise.Domain.Entities.UserProfile.UserProfile", null)
+                    b.HasOne("NutriWise.Domain.Entities.Identity.User", null)
                         .WithMany()
-                        .HasForeignKey("UserProfilesId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("NutriWise.Domain.Entities.Identity.User", b =>
-                {
-                    b.Navigation("Profile")
                         .IsRequired();
                 });
 

@@ -73,6 +73,10 @@ public sealed class UserProfileService : IUserProfileService
 		var kitchenEquipment = await _context.KitchenEquipments
 			.Where(equipment => userProfileDto.KitchenEquipment.Contains(equipment.Id))
 			.ToListAsync();
+
+		var products = await _context.Products
+			.Where(product => userProfileDto.AvailableProducts.Contains(product.Id))
+			.ToListAsync();
 		
 		userProfile.Gender = userProfileDto.Gender;
 		userProfile.BirthdayDate = userProfileDto.BirthdayDate;
@@ -82,6 +86,7 @@ public sealed class UserProfileService : IUserProfileService
 		userProfile.Weight = userProfileDto.Weight;
 		userProfile.Allergies = allergies;
 		userProfile.KitchenEquipments = kitchenEquipment;
+		userProfile.Products = products;
 
 		await _context.SaveChangesAsync();
 		return userProfile;

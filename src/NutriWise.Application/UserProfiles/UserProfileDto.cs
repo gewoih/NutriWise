@@ -10,4 +10,5 @@ public record UserProfileDto(
 	ActivityLevel ActivityLevel,
 	DietGoalType DietGoalType,
 	IEnumerable<Guid> Allergies,
-	IEnumerable<Guid> KitchenEquipment);
+	IEnumerable<Guid> KitchenEquipment,
+	IEnumerable<Guid> AvailableProducts);

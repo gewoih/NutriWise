@@ -3,6 +3,7 @@ import {ref, onMounted} from 'vue';
 import {userProfileService} from "../services/userProfileService.ts";
 import {UserProfile} from "../models/UserProfile.ts";
 import * as jsonpatch from 'fast-json-patch';
+import { format } from 'date-fns';
 
 const userProfile = ref<UserProfile>({
   gender: null,
@@ -58,7 +59,7 @@ const loadUserProfile = async () => {
         kitchenEquipment: profile.kitchenEquipment
       };
 
-      originalProfile.value = userProfile.value;
+      originalProfile.value = JSON.parse(JSON.stringify(userProfile.value));
     }
   } catch (error) {
     console.error('Failed to load user profile', error);
@@ -72,7 +73,12 @@ onMounted(async () => {
 
 const updateProfile = async () => {
   try {
-    const patchDocument = jsonpatch.compare(originalProfile.value as UserProfile, userProfile.value);
+    const formattedUserProfile = {
+      ...userProfile.value,
+      birthdayDate: format(new Date(userProfile.value.birthdayDate), 'yyyy-MM-dd'),
+    };
+    
+    const patchDocument = jsonpatch.compare(originalProfile.value as UserProfile, formattedUserProfile);
 
     if (patchDocument.length > 0) {
       await userProfileService.updateUserProfile(patchDocument);

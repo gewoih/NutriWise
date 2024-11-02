@@ -10,4 +10,5 @@ public sealed class Product : Entity
 	public double? Proteins { get; set; }
 	public double? Fats { get; set; }
 	public double? Carbohydrates { get; set; }
+	public ICollection<UserProfile.UserProfile> UserProfiles { get; set; }
 }
