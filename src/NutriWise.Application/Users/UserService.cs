@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NutriWise.Application.Food;
 using NutriWise.Domain.Entities.Identity;
+using NutriWise.Domain.Entities.UserProfile;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace NutriWise.Application.Users;
@@ -18,7 +19,8 @@ public sealed class UserService : IUserService
     private readonly UserManager<User> _userManager;
     private readonly IProductService _productService;
 
-    public UserService(SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration configuration, IProductService productService)
+    public UserService(SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration configuration,
+        IProductService productService)
     {
         _signInManager = signInManager;
         _userManager = userManager;
@@ -30,15 +32,17 @@ public sealed class UserService : IUserService
     {
         var info = await _signInManager.GetExternalLoginInfoAsync();
         if (info == null)
-            return string.Empty; 
-        
-        var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+            return string.Empty;
+
+        var result =
+            await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
         if (!result.Succeeded)
         {
             var email = info.Principal.FindFirstValue(ClaimTypes.Email);
             var products = await _productService.GetAllProductsAsync();
-            
-            var user = new User { UserName = email, Email = email, AvailableProducts = products };
+            var userProfile = new UserProfile { Products = products };
+
+            var user = new User { UserName = email, Email = email, Profile = userProfile };
             var identityResult = await _userManager.CreateAsync(user);
             if (identityResult.Succeeded)
                 await _userManager.AddLoginAsync(user, info);

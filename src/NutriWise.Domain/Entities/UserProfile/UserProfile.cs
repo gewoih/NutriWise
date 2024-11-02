@@ -16,4 +16,5 @@ public sealed class UserProfile : Entity
 	public DietGoalType DietGoalType { get; set; }
 	public ICollection<Allergy> Allergies { get; set; }
 	public ICollection<KitchenEquipment> KitchenEquipments { get; set; }
+	public ICollection<Product.Product> Products { get; set; }
 }
