@@ -36,10 +36,8 @@ public class OpenAiService
 		
 		var message =
 			$"Generate me daily meals plan with following nutrition value: {calories} calories, " +
-			$"{proteinGrams}g. of proteins, {fatGrams}g. of fats, {carbGrams} of carbs" +
-			$"\n\n" +
-			$"Available products List:\n" +
-			$"{availableProductsList}";
+			$"{proteinGrams}g. of proteins, {fatGrams}g. of fats, {carbGrams} of carbs \n\n" +
+			$"Available products List: \n{availableProductsList}";
 
 		var prompt = await EmbeddedResourcesUtils.GetResourceFileContentAsync("generateRecipe.txt");
 		var completion = await client.CompleteChatAsync([$"{prompt} {message}"], options);

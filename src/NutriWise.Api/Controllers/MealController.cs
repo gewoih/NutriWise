@@ -19,7 +19,7 @@ namespace NutriWise.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			var mealPlans = await _mealService.GetAsync();
+			var mealPlans = await _mealService.GetUserPlansAsync();
 			return Ok(mealPlans);
 		}
 		

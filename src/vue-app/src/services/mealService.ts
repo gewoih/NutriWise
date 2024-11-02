@@ -1,11 +1,11 @@
 ﻿import {apiService} from './api.ts'
 import {AxiosResponse} from "axios";
-import {DailyMeal} from "../models/meal/DailyMeal.ts";
+import {MealPlan} from "../models/meal/MealPlan.ts";
 
 class MealPlanService {
-    async getDailyMeals(): Promise<DailyMeal[]> {
+    async getDailyMeals(): Promise<MealPlan[]> {
         try {
-            const response: AxiosResponse<DailyMeal[]> = await apiService.axiosInstance.get('/meal');
+            const response: AxiosResponse<MealPlan[]> = await apiService.axiosInstance.get('/meal');
             return response.data;
         } catch (error) {
             console.error('Error fetching meals plan', error);
@@ -13,9 +13,9 @@ class MealPlanService {
         }
     }
 
-    async createDailyMeals(): Promise<DailyMeal | null> {
+    async createDailyMeals(): Promise<MealPlan | null> {
         try {
-            const response: AxiosResponse<DailyMeal> = await apiService.axiosInstance.post('/meal');
+            const response: AxiosResponse<MealPlan> = await apiService.axiosInstance.post('/meal');
             return response.data;
         } catch (error) {
             console.error('Error creating meals plan', error);

@@ -9,16 +9,19 @@ declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
     CallbackGoogle: typeof import('./src/components/Google/CallbackGoogle.vue')['default']
+    Card: typeof import('primevue/card')['default']
     DataView: typeof import('primevue/dataview')['default']
     DatePicker: typeof import('primevue/datepicker')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
+    Listbox: typeof import('primevue/listbox')['default']
     Menubar: typeof import('primevue/menubar')['default']
     MultiSelect: typeof import('primevue/multiselect')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('primevue/select')['default']
+    Tag: typeof import('primevue/tag')['default']
     UserProfile: typeof import('./src/components/UserProfile.vue')['default']
   }
   export interface ComponentCustomProperties {
