@@ -4,6 +4,6 @@ namespace NutriWise.Application.MealPlan;
 
 public interface IMealService
 {
-	Task<List<DailyMeals>> GetAsync();
+	Task<List<MealPlanDto>> GetUserPlansAsync();
 	Task<List<DailyMeals>> GenerateDailyMealsAsync();
 }

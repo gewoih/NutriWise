@@ -24,7 +24,7 @@ public class OpenAiService
 
 		var options = new ChatCompletionOptions
 		{
-			Temperature = 0.5f,
+			Temperature = 0.1f,
 			ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
 				jsonSchemaFormatName: "recipes",
 				jsonSchema: BinaryData.FromBytes(Encoding.UTF8.GetBytes(recipeResponseJsonSchema)),
@@ -35,14 +35,9 @@ public class OpenAiService
 			string.Join('\n', availableProducts.Select(product => $"{product.Id} {product.Name}"));
 		
 		var message =
-			$"Generate me daily meals plan with following nutrition value: " +
-			$"calories={calories}, " +
-			$"proteins={proteinGrams}, " +
-			$"fats={fatGrams}, " +
-			$"carbs={carbGrams}." +
-			$"\n\n" +
-			$"Available products List:\n" +
-			$"{availableProductsList}";
+			$"Generate me daily meals plan with following nutrition value: {calories} calories, " +
+			$"{proteinGrams}g. of proteins, {fatGrams}g. of fats, {carbGrams} of carbs \n\n" +
+			$"Available products List: \n{availableProductsList}";
 
 		var prompt = await EmbeddedResourcesUtils.GetResourceFileContentAsync("generateRecipe.txt");
 		var completion = await client.CompleteChatAsync([$"{prompt} {message}"], options);

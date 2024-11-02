@@ -3,10 +3,12 @@ import Profile from '../views/Profile.vue';
 import Login from '../views/Login.vue';
 import {useUserStore} from "../stores/user.ts";
 import CallbackGoogle from "../components/Google/CallbackGoogle.vue";
+import Home from "../views/Home.vue";
 
 const routes = [
+    { path: '/', component: Home },
     { path: '/callback', component: CallbackGoogle },
-    { path: '/profile', name: 'profile', component: Profile, meta: { requiresAuth: true } },
+    { path: '/profile', name: 'profile', component: Profile },
     { path: '/login', name: 'login', component: Login }
 ];
 
