@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using NutriWise.Application.Food;
 using NutriWise.Application.MealPlan;
 using NutriWise.Application.Nutrition;
 using NutriWise.Application.UserProfiles;
@@ -27,6 +28,8 @@ builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<INutritionService, NutritionService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IMealService, MealService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<OpenAiService>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
