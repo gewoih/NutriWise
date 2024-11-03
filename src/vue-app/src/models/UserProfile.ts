@@ -7,4 +7,5 @@
     dietGoalType: number | null;
     allergies: string[];
     kitchenEquipment: string[];
+    products: string[];
 }
