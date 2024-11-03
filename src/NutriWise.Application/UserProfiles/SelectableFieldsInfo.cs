@@ -9,4 +9,5 @@ public sealed class SelectableFieldsInfo
 	public IEnumerable<string> DietGoalTypes { get; set; }
 	public IEnumerable<Allergy> Allergies { get; set; }
 	public IEnumerable<KitchenEquipment> KitchenEquipment { get; set; }
+	public IEnumerable<ProductCategoryDto> ProductCategories { get; set; }
 }

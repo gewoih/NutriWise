@@ -6,7 +6,7 @@ using NutriWise.Domain.Entities.Meal;
 using NutriWise.Domain.ValueObjects;
 using NutriWise.Infrastructure.Database;
 using NutriWise.Infrastructure.OpenAi;
-using NutriWise.Infrastructure.OpenAi.Dto;
+using ProductDto = NutriWise.Infrastructure.OpenAi.Dto.ProductDto;
 
 namespace NutriWise.Application.MealPlan;
 
