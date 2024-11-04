@@ -1,12 +1,12 @@
 ﻿using NutriWise.Application.Extensions;
-using NutriWise.Domain.Entities.UserProfile;
+using NutriWise.Application.UserProfile;
 using NutriWise.Domain.ValueObjects;
 
 namespace NutriWise.Application.Nutrition;
 
 public sealed class NutritionService : INutritionService
 {
-	public NutritionPlan CalculateNutritionPlan(UserProfile userProfile)
+	public NutritionPlan CalculateNutritionPlan(UserProfileDto userProfile)
 	{
 		var gender = userProfile.Gender;
 		var age = UserExtensions.CalculateAge(userProfile.BirthdayDate);

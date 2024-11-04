@@ -1,8 +1,8 @@
-﻿using NutriWise.Domain.Entities.UserProfile;
+﻿using NutriWise.Application.UserProfile;
 
 namespace NutriWise.Application.Nutrition;
 
 public interface INutritionService
 {
-	NutritionPlan CalculateNutritionPlan(UserProfile userProfile);
+	NutritionPlan CalculateNutritionPlan(UserProfileDto userProfile);
 }

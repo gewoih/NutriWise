@@ -1,6 +1,6 @@
 ﻿using NutriWise.Domain.ValueObjects;
 
-namespace NutriWise.Application.UserProfiles;
+namespace NutriWise.Application.UserProfile;
 
 public record UserProfileDto(
 	Gender Gender, 
@@ -11,4 +11,4 @@ public record UserProfileDto(
 	DietGoalType DietGoalType,
 	IEnumerable<Guid> Allergies,
 	IEnumerable<Guid> KitchenEquipment,
-	IEnumerable<Guid> AvailableProducts);
+	IEnumerable<Guid> Products);

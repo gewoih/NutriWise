@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutriWise.Application.Nutrition;
-using NutriWise.Application.UserProfiles;
+using NutriWise.Application.UserProfile;
 using NutriWise.Application.Users;
 using NutriWise.Domain.Entities.Meal;
 using NutriWise.Domain.ValueObjects;
 using NutriWise.Infrastructure.Database;
 using NutriWise.Infrastructure.OpenAi;
-using NutriWise.Infrastructure.OpenAi.Dto;
+using ProductDto = NutriWise.Infrastructure.OpenAi.Dto.ProductDto;
 
 namespace NutriWise.Application.MealPlan;
 
@@ -53,6 +53,9 @@ public class MealService : IMealService
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
 		var userProfile = await _userProfileService.GetAsync(currentUserId);
+		if (userProfile is null)
+			return [];
+		
 		var nutrition = _nutritionService.CalculateNutritionPlan(userProfile);
 
 		var availableProductsDto = await _context.Products

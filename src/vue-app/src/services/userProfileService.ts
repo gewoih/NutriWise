@@ -23,9 +23,9 @@ class UserProfileService {
         }
     }
 
-    async updateUserProfile(patchDocument: any): Promise<boolean> {
+    async updateUserProfile(userProfile: UserProfile): Promise<boolean> {
         try {
-            await apiService.axiosInstance.patch('/user-profile', patchDocument, {
+            await apiService.axiosInstance.patch('/user-profile', userProfile, {
                 headers: {
                     'Content-Type': 'application/json-patch+json'
                 }
