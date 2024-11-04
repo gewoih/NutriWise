@@ -65,6 +65,7 @@ public sealed class UserProfileService : IUserProfileService
         var userProfile = await _context.UserProfiles
             .Include(userProfile => userProfile.Allergies)
             .Include(userProfile => userProfile.KitchenEquipments)
+            .Include(userProfile => userProfile.Products)
             .FirstOrDefaultAsync(userProfile => userProfile.UserId == userId);
 
         if (userProfile is null)
