@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import {computed} from 'vue';
+import {computed, watch} from 'vue';
 import {userProfileService} from "../services/userProfileService.ts";
 import {UserProfile} from "../models/UserProfile.ts";
 import * as jsonpatch from 'fast-json-patch';
@@ -20,16 +20,14 @@ const {
   selectionKeys,
 } = useUserProfile();
 
-const selectedProducts = computed(() => {
-  return Object.fromEntries(
-      Object.entries(selectionKeys.value).filter(([key]) => {
-        return productsNodes.value.some(node =>
-            node.children?.some(child =>
-                child.children?.some(product => product.key === key && product.isProduct)
-            )
-        );
-      })
-  );
+const selectedProductIds = computed(() => {
+  return Object.entries(selectionKeys.value)
+      .filter(([_, value]) => value.checked)
+      .map(([key]) => key);
+});
+
+watch(selectedProductIds, (newProductIds) => {
+  userProfile.value.products = newProductIds;
 });
 
 const updateProfile = async () => {
@@ -69,7 +67,7 @@ const updateProfile = async () => {
             @updateProfile="updateProfile"
         />
         <Tree :value="productsNodes" v-model:expanded-keys="expandedKeys" v-model:selection-keys="selectionKeys"
-              selectionMode="checkbox" class="w-full md:w-[30rem]" />
+              selectionMode="checkbox" class="w-full md:w-[30rem]"/>
       </template>
     </Card>
   </div>

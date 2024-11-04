@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue';
+import {ref, onMounted} from 'vue';
 import { userProfileService } from '../services/userProfileService';
 import { UserProfile } from '../models/UserProfile';
 import { Category } from '../models/product/Category';
@@ -26,7 +26,7 @@ export function useUserProfile() {
     const productCategories = ref<Category[]>([]);
     const productsNodes = ref<TreeNode[]>([]);
     const expandedKeys = ref<{ [key: string]: boolean }>({});
-    const selectionKeys = ref<{ [key: string]: boolean }>({});
+    const selectionKeys = ref<{ [key: string]: { checked?: boolean; partialChecked?: boolean } }>({});
 
     const loadSelectableFields = async () => {
         try {
@@ -52,7 +52,7 @@ export function useUserProfile() {
         try {
             const profile = await userProfileService.getUserProfile();
             if (profile) {
-                userProfile.value = { ...profile, products: [] };
+                userProfile.value = { ...profile };
                 originalProfile.value = JSON.parse(JSON.stringify(profile));
             }
         } catch (error) {
@@ -76,10 +76,34 @@ export function useUserProfile() {
         }));
     };
 
+    const propagateSelectionUp = (nodes: TreeNode[], selectionKeys: { [key: string]: { checked: boolean } }) => {
+        nodes.forEach(node => {
+            if (node.children && node.children.length > 0) {
+                propagateSelectionUp(node.children, selectionKeys);
+
+                const allChildrenSelected = node.children.every(child => selectionKeys[child.key]?.checked);
+
+                if (allChildrenSelected) {
+                    selectionKeys[node.key] = { checked: true };
+                }
+            }
+        });
+    };
+
     onMounted(async () => {
         await loadSelectableFields();
         await loadUserProfile();
+
         productsNodes.value = transformToTreeNodes(productCategories.value);
+
+        if (userProfile.value.products.length > 0) {
+            selectionKeys.value = userProfile.value.products.reduce((keys, productId) => {
+                keys[productId.toString()] = { checked: true };
+                return keys;
+            }, {} as { [key: string]: { checked: boolean } });
+
+            propagateSelectionUp(productsNodes.value, selectionKeys.value);
+        }
     });
 
     return {
