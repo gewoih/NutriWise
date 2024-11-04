@@ -76,15 +76,20 @@ export function useUserProfile() {
         }));
     };
 
-    const propagateSelectionUp = (nodes: TreeNode[], selectionKeys: { [key: string]: { checked: boolean } }) => {
+    const propagateSelectionUp = (nodes: TreeNode[], selectionKeys: { [key: string]: { checked: boolean; partialChecked?: boolean } }) => {
         nodes.forEach(node => {
             if (node.children && node.children.length > 0) {
                 propagateSelectionUp(node.children, selectionKeys);
 
                 const allChildrenSelected = node.children.every(child => selectionKeys[child.key]?.checked);
+                const anyChildSelected = node.children.some(child => selectionKeys[child.key]?.checked || selectionKeys[child.key]?.partialChecked);
 
                 if (allChildrenSelected) {
-                    selectionKeys[node.key] = { checked: true };
+                    selectionKeys[node.key] = { checked: true, partialChecked: false };
+                } else if (anyChildSelected) {
+                    selectionKeys[node.key] = { checked: false, partialChecked: true };
+                } else {
+                    selectionKeys[node.key] = { checked: false, partialChecked: false };
                 }
             }
         });
