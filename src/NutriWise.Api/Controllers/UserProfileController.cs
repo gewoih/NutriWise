@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NutriWise.Application.UserProfiles;
+using NutriWise.Application.UserProfile;
 using NutriWise.Application.Users;
 
 namespace NutriWise.Controllers;

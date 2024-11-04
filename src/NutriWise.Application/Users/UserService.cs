@@ -40,7 +40,7 @@ public sealed class UserService : IUserService
         {
             var email = info.Principal.FindFirstValue(ClaimTypes.Email);
             var products = await _productService.GetAllProductsAsync();
-            var userProfile = new UserProfile { Products = products };
+            var userProfile = new Domain.Entities.UserProfile.UserProfile { Products = products };
 
             var user = new User { UserName = email, Email = email, Profile = userProfile };
             var identityResult = await _userManager.CreateAsync(user);

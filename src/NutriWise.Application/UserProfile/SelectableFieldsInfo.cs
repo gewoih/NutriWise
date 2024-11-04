@@ -1,6 +1,6 @@
 ﻿using NutriWise.Domain.Entities.UserProfile;
 
-namespace NutriWise.Application.UserProfiles;
+namespace NutriWise.Application.UserProfile;
 
 public sealed class SelectableFieldsInfo
 {

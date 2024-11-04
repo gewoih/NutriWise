@@ -8,7 +8,7 @@ using Newtonsoft.Json.Serialization;
 using NutriWise.Application.Food;
 using NutriWise.Application.MealPlan;
 using NutriWise.Application.Nutrition;
-using NutriWise.Application.UserProfiles;
+using NutriWise.Application.UserProfile;
 using NutriWise.Application.Users;
 using NutriWise.Domain.Entities.Identity;
 using NutriWise.Infrastructure.Database;

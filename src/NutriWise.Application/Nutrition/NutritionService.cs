@@ -1,5 +1,5 @@
 ﻿using NutriWise.Application.Extensions;
-using NutriWise.Application.UserProfiles;
+using NutriWise.Application.UserProfile;
 using NutriWise.Domain.ValueObjects;
 
 namespace NutriWise.Application.Nutrition;

@@ -1,6 +1,6 @@
 ﻿using NutriWise.Domain.ValueObjects;
 
-namespace NutriWise.Application.UserProfiles;
+namespace NutriWise.Application.UserProfile;
 
 public record UserProfileDto(
 	Gender Gender, 

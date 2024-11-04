@@ -1,4 +1,4 @@
-﻿using NutriWise.Application.UserProfiles;
+﻿using NutriWise.Application.UserProfile;
 
 namespace NutriWise.Application.Nutrition;
 

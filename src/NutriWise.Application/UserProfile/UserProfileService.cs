@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutriWise.Application.Extensions;
-using NutriWise.Domain.Entities.UserProfile;
 using NutriWise.Domain.ValueObjects;
 using NutriWise.Infrastructure.Database;
 
-namespace NutriWise.Application.UserProfiles;
+namespace NutriWise.Application.UserProfile;
 
 public sealed class UserProfileService : IUserProfileService
 {
@@ -27,7 +26,7 @@ public sealed class UserProfileService : IUserProfileService
         return userProfile?.ToDto();
     }
 
-    public async Task<UserProfile?> CreateAsync(Guid userId, UserProfileDto userProfileDto)
+    public async Task<Domain.Entities.UserProfile.UserProfile?> CreateAsync(Guid userId, UserProfileDto userProfileDto)
     {
         var isUserProfileExists = await _context.UserProfiles.AnyAsync(userProfile => userProfile.UserId == userId);
         if (isUserProfileExists)
@@ -41,7 +40,7 @@ public sealed class UserProfileService : IUserProfileService
             .Where(equipment => userProfileDto.KitchenEquipment.Contains(equipment.Id))
             .ToListAsync();
 
-        var userProfile = new UserProfile
+        var userProfile = new Domain.Entities.UserProfile.UserProfile
         {
             UserId = userId,
             ActivityLevel = userProfileDto.ActivityLevel,
@@ -60,7 +59,7 @@ public sealed class UserProfileService : IUserProfileService
         return userProfile;
     }
 
-    public async Task<UserProfile?> UpdateAsync(Guid userId, UserProfileDto userProfileDto)
+    public async Task<Domain.Entities.UserProfile.UserProfile?> UpdateAsync(Guid userId, UserProfileDto userProfileDto)
     {
         var userProfile = await _context.UserProfiles
             .Include(userProfile => userProfile.Allergies)

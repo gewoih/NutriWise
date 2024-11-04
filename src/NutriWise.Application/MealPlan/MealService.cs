@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutriWise.Application.Nutrition;
-using NutriWise.Application.UserProfiles;
+using NutriWise.Application.UserProfile;
 using NutriWise.Application.Users;
 using NutriWise.Domain.Entities.Meal;
 using NutriWise.Domain.ValueObjects;

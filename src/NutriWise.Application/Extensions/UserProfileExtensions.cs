@@ -1,11 +1,10 @@
-﻿using NutriWise.Application.UserProfiles;
-using NutriWise.Domain.Entities.UserProfile;
+﻿using NutriWise.Application.UserProfile;
 
 namespace NutriWise.Application.Extensions;
 
 public static class UserProfileExtensions
 {
-	public static UserProfileDto ToDto(this UserProfile userProfile)
+	public static UserProfileDto ToDto(this Domain.Entities.UserProfile.UserProfile userProfile)
 	{
 		var allergies = userProfile.Allergies.Select(allergy => allergy.Id);
 		var kitchenEquipment = userProfile.KitchenEquipments.Select(equipment => equipment.Id);
