@@ -10,7 +10,7 @@ public static class UserProfileExtensions
 		var kitchenEquipment = userProfile.KitchenEquipments.Select(equipment => equipment.Id);
 		var products = userProfile.Products.Select(product => product.Id);
 		
-		return new UserProfileDto(userProfile.Gender, userProfile.BirthdayDate, userProfile.Height, userProfile.Weight,
-			userProfile.ActivityLevel, userProfile.DietGoalType, allergies, kitchenEquipment, products);
+		return new UserProfileDto(userProfile.Height, userProfile.Weight, userProfile.ActivityLevel, 
+			userProfile.DietGoalType, allergies, kitchenEquipment, products);
 	}
 }

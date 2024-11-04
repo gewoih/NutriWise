@@ -56,7 +56,6 @@ const updateProfile = async () => {
       <template #content>
         <ProfileInputs
             :userProfile="userProfile"
-            :gendersList="gendersList"
             :activityLevelsList="activityLevelsList"
             :dietGoalsList="dietGoalsList"
             :allergiesList="allergiesList"

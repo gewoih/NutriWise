@@ -6,8 +6,6 @@ import { TreeNode } from 'primevue/treenode';
 
 export function useUserProfile() {
     const userProfile = ref<UserProfile>({
-        gender: null,
-        birthdayDate: null,
         height: null,
         weight: null,
         activityLevel: null,
@@ -18,7 +16,6 @@ export function useUserProfile() {
     });
 
     const originalProfile = ref<UserProfile>();
-    const gendersList = ref([]);
     const activityLevelsList = ref([]);
     const dietGoalsList = ref([]);
     const allergiesList = ref([]);
@@ -31,7 +28,6 @@ export function useUserProfile() {
     const loadSelectableFields = async () => {
         try {
             const response = await userProfileService.getSelectableFields();
-            gendersList.value = response.genders.map((gender: string, index: number) => ({ label: gender, value: index }));
             activityLevelsList.value = response.activityLevels.map((level: string, index: number) => ({
                 label: level,
                 value: index,
@@ -114,7 +110,6 @@ export function useUserProfile() {
     return {
         userProfile,
         originalProfile,
-        gendersList,
         activityLevelsList,
         dietGoalsList,
         allergiesList,

@@ -51,12 +51,15 @@ public class MealService : IMealService
 
 	public async Task<List<DailyMeals>> GenerateDailyMealsAsync()
 	{
-		var currentUserId = _currentUserService.GetCurrentUserId();
-		var userProfile = await _userProfileService.GetAsync(currentUserId);
+		var currentUser = await _currentUserService.GetCurrentUserAsync();
+		if (currentUser is null)
+			return [];
+		
+		var userProfile = await _userProfileService.GetAsync(currentUser.Id);
 		if (userProfile is null)
 			return [];
 		
-		var nutrition = _nutritionService.CalculateNutritionPlan(userProfile);
+		var nutrition = _nutritionService.CalculateNutritionPlan(currentUser.Gender, currentUser.BirthDate, userProfile);
 
 		var availableProductsDto = await _context.Products
 			.Where(product => userProfile.Products.Contains(product.Id))
@@ -88,7 +91,7 @@ public class MealService : IMealService
 
 		var dailyMeals = new DailyMeals
 		{
-			UserId = currentUserId,
+			UserId = currentUser.Id,
 			Meals = meals
 		};
 
