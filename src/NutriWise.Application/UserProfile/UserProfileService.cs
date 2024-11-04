@@ -49,8 +49,6 @@ public sealed class UserProfileService : IUserProfileService
             .Where(product => userProfileDto.Products.Contains(product.Id))
             .ToListAsync();
 
-        userProfile.Gender = userProfileDto.Gender;
-        userProfile.BirthdayDate = userProfileDto.BirthdayDate;
         userProfile.ActivityLevel = userProfileDto.ActivityLevel;
         userProfile.DietGoalType = userProfileDto.DietGoalType;
         userProfile.Height = userProfileDto.Height;

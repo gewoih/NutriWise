@@ -6,10 +6,9 @@ namespace NutriWise.Application.Nutrition;
 
 public sealed class NutritionService : INutritionService
 {
-	public NutritionPlan CalculateNutritionPlan(UserProfileDto userProfile)
+	public NutritionPlan CalculateNutritionPlan(Gender gender, DateOnly birhdayDate, UserProfileDto userProfile)
 	{
-		var gender = userProfile.Gender;
-		var age = UserExtensions.CalculateAge(userProfile.BirthdayDate);
+		var age = UserExtensions.CalculateAge(birhdayDate);
 		var heightCm = userProfile.Height;
 		var weightKg = userProfile.Weight;
 		var activityLevel = userProfile.ActivityLevel;

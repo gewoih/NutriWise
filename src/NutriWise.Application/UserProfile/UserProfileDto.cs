@@ -3,8 +3,6 @@
 namespace NutriWise.Application.UserProfile;
 
 public record UserProfileDto(
-	Gender Gender, 
-	DateOnly BirthdayDate,
 	double Height,
 	double Weight,
 	ActivityLevel ActivityLevel,

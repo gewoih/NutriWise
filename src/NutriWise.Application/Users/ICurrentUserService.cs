@@ -2,5 +2,6 @@
 
 public interface ICurrentUserService
 {
+	Task<UserDto?> GetCurrentUserAsync();
 	Guid GetCurrentUserId();
 }
