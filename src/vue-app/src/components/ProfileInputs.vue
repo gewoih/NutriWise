@@ -3,7 +3,6 @@ import { UserProfile } from '../models/UserProfile';
 
 const props = defineProps<{
   userProfile: UserProfile;
-  gendersList: Array<{ label: string; value: number }>;
   activityLevelsList: Array<{ label: string; value: number }>;
   dietGoalsList: Array<{ label: string; value: number }>;
   allergiesList: Array<{ label: string; value: string }>;
@@ -29,23 +28,9 @@ const emits = defineEmits(['updateProfile']);
         <InputNumber class="w-9" id="height" v-model="props.userProfile.height" :min="50" :max="250" mode="decimal"
                      :step="0.1"/>
       </div>
-
-      <!-- Birthday Date -->
-      <div class="flex justify-content-between align-items-center">
-        <label class="font-semibold w-3" for="birthday">Дата рождения</label>
-        <DatePicker class="w-9" id="birthday" v-model="props.userProfile.birthdayDate" dateFormat="yy-mm-dd"
-                    :showTime="false" showIcon/>
-      </div>
     </div>
 
     <div class="w-5">
-      <!-- Gender -->
-      <div class="flex justify-content-between align-items-center mb-4">
-        <label class="font-semibold w-3" for="gender">Пол</label>
-        <Select class="w-9" id="gender" v-model="props.userProfile.gender" :options="props.gendersList"
-                optionLabel="label" optionValue="value" placeholder="Выберите пол"/>
-      </div>
-
       <!-- Activity Level -->
       <div class="flex justify-content-between align-items-center mb-4">
         <label class="font-semibold w-3" for="activityLevel">Уровень активности</label>

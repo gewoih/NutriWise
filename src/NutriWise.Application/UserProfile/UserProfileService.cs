@@ -84,10 +84,6 @@ public sealed class UserProfileService : IUserProfileService
                 })
             }).ToListAsync();
 
-        var genders = Enum.GetValues<Gender>()
-            .Select(g => g.ToString())
-            .ToList();
-
         var activityLevels = Enum.GetValues<ActivityLevel>()
             .Select(al => al.ToString())
             .ToList();
@@ -100,7 +96,6 @@ public sealed class UserProfileService : IUserProfileService
         {
             Allergies = allergies,
             KitchenEquipment = kitchenEquipment,
-            Genders = genders,
             ActivityLevels = activityLevels,
             DietGoalTypes = dietGoalTypes,
             ProductCategories = productCategories
