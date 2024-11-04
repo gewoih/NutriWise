@@ -59,6 +59,7 @@ public class MealService : IMealService
 		var nutrition = _nutritionService.CalculateNutritionPlan(userProfile);
 
 		var availableProductsDto = await _context.Products
+			.Where(product => userProfile.Products.Contains(product.Id))
 			.Select(product => new ProductDto { Id = product.Id, Name = product.Caption })
 			.ToListAsync();
 
