@@ -26,16 +26,6 @@ public class UserProfileController : ControllerBase
 		var userProfileDto = await _userProfileService.GetAsync(currentUserId);
 		return userProfileDto is null ? NotFound() : Ok(userProfileDto);
 	}
-
-	[HttpPost]
-	public async Task<IActionResult> Post([FromBody] UserProfileDto userProfileDto)
-	{
-		var currentUserId = _currentUserService.GetCurrentUserId();
-		var createdUserProfile = await _userProfileService.CreateAsync(currentUserId, userProfileDto);
-		return createdUserProfile is null 
-			? Conflict() 
-			: CreatedAtAction(nameof(Get), new { userId = createdUserProfile.UserId }, createdUserProfile);
-	}
 	
 	[HttpPatch]
 	public async Task<IActionResult> Patch([FromBody] UserProfileDto userProfileDto)
