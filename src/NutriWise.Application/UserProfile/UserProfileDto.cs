@@ -11,4 +11,4 @@ public record UserProfileDto(
 	DietGoalType DietGoalType,
 	IEnumerable<Guid> Allergies,
 	IEnumerable<Guid> KitchenEquipment,
-	IEnumerable<Guid> AvailableProducts);
+	IEnumerable<Guid> Products);

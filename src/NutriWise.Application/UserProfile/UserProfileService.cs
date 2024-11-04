@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NutriWise.Application.Extensions;
 using NutriWise.Domain.Entities.UserProfile;
 using NutriWise.Domain.ValueObjects;
 using NutriWise.Infrastructure.Database;
@@ -14,13 +15,16 @@ public sealed class UserProfileService : IUserProfileService
         _context = context;
     }
 
-    public async Task<UserProfile?> GetAsync(Guid userId)
+    public async Task<UserProfileDto?> GetAsync(Guid userId)
     {
         var userProfile = await _context.UserProfiles
             .Where(userProfile => userProfile.UserId == userId)
+            .Include(userProfile => userProfile.Allergies)
+            .Include(userProfile => userProfile.KitchenEquipments)
+            .Include(userProfile => userProfile.Products)
             .FirstOrDefaultAsync();
 
-        return userProfile;
+        return userProfile?.ToDto();
     }
 
     public async Task<UserProfile?> CreateAsync(Guid userId, UserProfileDto userProfileDto)
@@ -75,7 +79,7 @@ public sealed class UserProfileService : IUserProfileService
             .ToListAsync();
 
         var products = await _context.Products
-            .Where(product => userProfileDto.AvailableProducts.Contains(product.Id))
+            .Where(product => userProfileDto.Products.Contains(product.Id))
             .ToListAsync();
 
         userProfile.Gender = userProfileDto.Gender;

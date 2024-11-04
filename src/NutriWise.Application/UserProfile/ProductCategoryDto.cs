@@ -1,5 +1,3 @@
-using System.Collections;
-
 namespace NutriWise.Application.UserProfiles;
 
 public sealed class ProductCategoryDto

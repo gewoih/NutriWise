@@ -53,6 +53,9 @@ public class MealService : IMealService
 	{
 		var currentUserId = _currentUserService.GetCurrentUserId();
 		var userProfile = await _userProfileService.GetAsync(currentUserId);
+		if (userProfile is null)
+			return [];
+		
 		var nutrition = _nutritionService.CalculateNutritionPlan(userProfile);
 
 		var availableProductsDto = await _context.Products

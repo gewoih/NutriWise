@@ -47,10 +47,9 @@ public class UserProfileController : ControllerBase
 		if (userProfile is null)
 			return NotFound();
 
-		var userProfileDto = userProfile.ToDto();
-		patchDocument.ApplyTo(userProfileDto);
+		patchDocument.ApplyTo(userProfile);
+		await _userProfileService.UpdateAsync(currentUserId, userProfile);
 		
-		await _userProfileService.UpdateAsync(currentUserId, userProfileDto);
 		return NoContent();
 	}
 
