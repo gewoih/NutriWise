@@ -1,6 +1,9 @@
 ﻿{
   "type": "object",
   "properties": {
+    "name": {
+      "type": "string"
+    },
     "meals": {
       "type": "array",
       "items": {
@@ -51,6 +54,7 @@
     }
   },
   "required": [
+    "name",
     "meals"
   ],
   "additionalProperties": false
