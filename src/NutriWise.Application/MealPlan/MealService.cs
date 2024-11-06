@@ -43,7 +43,7 @@ public class MealService : IMealService
             .Select(dailyMeal => new MealPlanDto
             {
                 Id = dailyMeal.Id,
-                Name = "План питания #",
+                Name = dailyMeal.Caption,
                 MealNames = dailyMeal.Meals.Select(meal => meal.Caption).ToList(),
                 Calories = (int)dailyMeal.Meals
                     .SelectMany(meal => meal.Ingredients)
@@ -113,6 +113,7 @@ public class MealService : IMealService
 
         var dailyMeals = new DailyMeals
         {
+            Caption = mealPlanDto.Name,
             UserId = currentUser.Id,
             Meals = meals
         };
