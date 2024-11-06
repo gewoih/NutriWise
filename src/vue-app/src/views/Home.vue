@@ -42,7 +42,7 @@ const createMealPlan = async () => {
             <div class="pt-2">
               <div class="flex flex-row gap-2">
                 <div>
-                  <div class="text-lg mt-1">{{ item.name }}</div>
+                  <div class="text-lg mt-1">КБЖУ: {{ item.calories }}/{{item.proteins}}/{{item.fats}}/{{item.carbs}}</div>
                 </div>
               </div>
               <div>

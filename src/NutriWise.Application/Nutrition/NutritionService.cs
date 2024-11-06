@@ -6,9 +6,9 @@ namespace NutriWise.Application.Nutrition;
 
 public sealed class NutritionService : INutritionService
 {
-	public NutritionPlan CalculateNutritionPlan(Gender gender, DateOnly birhdayDate, UserProfileDto userProfile)
+	public NutritionPlan CalculateNutritionPlan(Gender gender, DateOnly birthDate, UserProfileDto userProfile)
 	{
-		var age = UserExtensions.CalculateAge(birhdayDate);
+		var age = UserExtensions.CalculateAge(birthDate);
 		var heightCm = userProfile.Height;
 		var weightKg = userProfile.Weight;
 		var activityLevel = userProfile.ActivityLevel;
@@ -24,10 +24,10 @@ public sealed class NutritionService : INutritionService
 
 		return new NutritionPlan
 		{
-			Calories = totalGoalCalories,
-			ProteinGrams = proteinGrams,
-			FatGrams = fatGrams,
-			CarbGrams = carbGrams
+			Calories = (int)totalGoalCalories,
+			ProteinGrams = (int)proteinGrams,
+			FatGrams = (int)fatGrams,
+			CarbGrams = (int)carbGrams
 		};
 	}
 	

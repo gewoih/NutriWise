@@ -9,7 +9,6 @@ import _ from 'lodash'
 const {
   userProfile,
   originalProfile,
-  gendersList,
   activityLevelsList,
   dietGoalsList,
   allergiesList,
