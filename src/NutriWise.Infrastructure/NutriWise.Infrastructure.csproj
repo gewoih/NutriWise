@@ -8,6 +8,7 @@
   </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="CsvHelper" Version="33.0.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -22,6 +23,8 @@
     <ItemGroup>
       <EmbeddedResource Include="Resources\JsonSchemas\recipeResponse.json" />
       <EmbeddedResource Include="Resources\Prompts\generateRecipe.txt" />
+      <None Remove="Resources\Products\products.csv" />
+      <EmbeddedResource Include="Resources\Products\products.csv" />
     </ItemGroup>
 
 </Project>
